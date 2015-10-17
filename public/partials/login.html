@@ -1,0 +1,33 @@
+<div class="container">
+<div class="col-sm-6 col-sm-offset-3">
+
+  <h1><span class="fa fa-sign-in"></span> Login</h1>
+
+    <!-- LOGIN FORM -->
+    <form name="form" id="sign-in-form" ng-submit="submit()" autocomplete="off">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" name="email" ng-model="email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" ng-model="password">
+        </div>
+        <div class="form-group">
+          <label>Remember:</label>
+          <input type="checkbox" class="" name="rememberMe" ng-model="rememberMe">
+        </div>
+
+      <button ng-disabled="form.$invalid" type="submit" class="btn btn-warning btn-lg">Login</button>
+    </form>
+
+    <hr>
+
+    <p>Need an account? <a href="/signup">Signup</a></p>
+    <p>Or go <a href="/">home</a>.</p>
+
+    <div class="text-center">
+    </div>
+
+</div>
+</div>

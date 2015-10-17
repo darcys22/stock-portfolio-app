@@ -1,0 +1,51 @@
+body {
+  background-image: url('../images/bg.png');
+}
+
+#logo {
+  background-image: url('../images/logo.png');
+  width: 95;
+  height: 35;
+  background-position: center;
+  background-size: cover;
+}
+
+.alert-material {
+  position: fixed;
+  right: 12px;
+  top: 62px;
+  z-index: 9999;
+  display: inline-block;
+  min-height: 48px;
+  padding: 13px 24px 12px;
+  font-family: 'Roboto', sans-serif;
+  color: #f1f1f1;
+  cursor: default;
+  background: #323232;
+  border-radius: 2px;
+  outline: none;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+#footer {
+  height: 50px;
+}
+#footer p {
+  display: block;
+  float: left;
+  font-size: 0.9em;
+}
+#footer p a, #footer p a:Hover {
+  text-decoration: none;
+}
+#footer p a:Hover {
+  text-decoration: underline;
+}
+#footer .darcy {
+  padding: 45px 0px 0px 55px;
+}
+#footer .copyright {
+  float: right;
+  text-align: right;
+  padding: 45px 65px 0px 0px;
+}

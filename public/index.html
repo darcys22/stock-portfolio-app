@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp"> 
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Stock Portfolio</title>
+  <meta name="description" content="Monitor and Track Stock Portfolio">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </meta>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+ 
+  <!--build:css assets/stylesheets/style.css-->
+  <link rel="stylesheet" href="assets/css/app.css">
+  <!--endbuild-->
+  <base href="/">
+
+
+</head>
+<body ng-cloak>
+
+  <header class="navbar navbar-static-top navbar-default" ng-controller="NavigationController">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+          <img alt="Brand" src="assets/images/logo-sm.png">
+        </a>
+      </div>
+      <ul ng-hide="isAuthenticated()" class="nav navbar-nav navbar-right">
+      <!--<ul ng-show="user" class="nav navbar-nav navbar-right">-->
+        <li><a href="/login">Login</a></li>
+        <li>
+          <p class="navbar-btn">
+            <a class="btn btn-default" href="/signup">Signup</a>
+          </p>
+        </li>
+      </ul>
+      <ul ng-show="isAuthenticated()" class="nav navbar-nav navbar-right">
+        <li><a href="/tfnd">TFND</a></li>
+        <li>
+          <p class="navbar-btn">
+            <div class="btn-group" dropdown is-open="status.isopen">
+              <button id="single-button" type="button" class="btn btn-default" dropdown-toggle ng-disabled="disabled">
+                <i class="fa fa-cog"></i>
+                <!--<i ng-hide="status.isopen" class="fa fa-caret-down"></i>-->
+                <!--<i ng-show="status.isopen" class="fa fa-caret-up"></i>-->
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                <li role="menuitem"><a href="/settings">Settings</a></li>
+                <li role="menuitem"><a href ng-click="logout()">Logout</a></li>
+                <li class="divider"></li>
+                <!--<li role="menuitem"><a>{{user.companyName}}</a></li>-->
+                <li role="menuitem"><a>TEST NAME</a></li>
+              </ul>
+            </div>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+
+  <div ng-view></div>
+
+  <!--jquery-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script> 
+
+  <!--build:vendorjs assets/javascript/vendor.js-->
+  <script src="libs/angular-route/angular-route.min.js"></script> 
+  <script src="libs/angular-bootstrap/ui-bootstrap.min.js"></script> 
+  <script src="libs/satellizer/satellizer.min.js"></script> 
+  <script src="libs/angular-strap/dist/angular-strap.min.js"></script>
+  <script src="libs/angular-strap/dist/angular-strap.tpl.js"></script>
+  <!--endbuild-->
+
+  
+  <!--My Application Code-->
+  <!--build:js assets/javascript/app.js-->
+  <script src="app.js"></script>
+  <script src="app/controllers/landing.js"></script>
+  <script src="app/controllers/login.js"></script>
+  <script src="app/controllers/signup.js"></script>
+  <script src="app/controllers/navigation.js"></script>
+  <script src="app/controllers/settings.js"></script>
+  <script src="app/controllers/portfolio.js"></script>
+  <script src="app/services/UserFactory.js"></script>
+  <script src="app/services/TFNDFactory.js"></script>
+  <!--endbuild-->
+  
+  <!--build:templateCache assets/javascript/templates.js-->
+  <script src="assets/javascript/templates.js"></script>
+  <!--endbuild-->
+</body>
+
+<div id="footer">
+  <p class="darcy">Stock Portfolio</p>
+  <p class="copyright">
+    Copyright © 2015
+    <a href="https://github.com/darcys22" target="_blank"><strong>Sean Darcy</strong></a>
+    <br>
+    Powered by
+    <a href="https://angularjs.org/">AngularJS</a>
+    <span>|</span>
+   <a href="https://nodejs.org/en/">NodeJS</a>
+  </p>
+</div>
+</html>
