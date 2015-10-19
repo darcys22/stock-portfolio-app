@@ -11,19 +11,23 @@ angular.module('myApp.portfolio', ['ngRoute'])
   });
 }])
 
-.controller('PortfolioController', ['$scope', '$http', 'TFNDFactory', '$alert', function($scope, $http, TFNDFactory, $alert) {
+.controller('PortfolioController', ['$scope', '$http', 'TFNDFactory', 'StockFactory', '$alert', function($scope, $http, TFNDFactory, StockFactory, $alert) {
 
-  $scope.submit = function() {
-    TFNDFactory.post({"tfn" : "nothing"})
-      .then(function(data) {
-        $alert({
-          content: JSON.stringify(data.data),
-          animation: 'fadeZoomFadeDown',
-          type: 'material',
-          duration: 3
-        })
+  $scope.portfolio = {};
+  $scope.loading = true;
+  $scope.portfolio = StockFactory.get().then(
+    function (response) {
+      $scope.loading = false;
+      $scope.portfolio = response.data;
+    }, function (status) {
+      $alert({
+        content: status,
+        animation: 'fadeZoomFadeDown',
+        type: 'material',
+        duration: 3
       })
-    };
+    }
+  )
 
 }]);
 

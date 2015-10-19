@@ -2,9 +2,77 @@
 
     <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span> Portfolio</h1>
-        <a href ng-click="submit()" class="btn btn-default btn-lg">Submit</a>
+      </div>
+
+<form name="registration_form" id='registration_form' class="form-inline">
+  <div class="row">
+      <div class="form-group col-xs-3">
+          <label for="stock" class="sr-only"></label>
+          <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="firstname"
+                 title="Stock"
+                 placeholder="Stock"/>
+      </div>
+
+      <div class="form-group col-xs-2">
+          <label for="qty" class="sr-only"></label>
+          <input id="qty" class="form-control input-group-lg reg_name" type="text" name="lastname"
+                 title="qty"
+                 placeholder="qty"/>
+      </div>
+      <div class="form-group col-xs-3">
+          <label for="price" class="sr-only"></label>
+          <input id="price" class="form-control input-group-lg reg_name" type="text" name="lastname"
+                 title="price"
+                 placeholder="price"/>
+      </div>
+      <div class="form-group col-xs-3">
+          <label for="date" class="sr-only"></label>
+          <input id="date" class="form-control input-group-lg reg_name" type="text" name="lastname"
+                 title="date"
+                 placeholder="date"/>
+     </div>
+               <button class="btn btn-success dropdown-toggle" type="button" id="single-button"><i class="fa fa-plus"></i></button>
+  </div>
+</form>
+
+    <div class="row">
+      <h2> Current</h2>
+      <table>
+        <tr>
+          <th>Stock</td>
+          <th>Qty</td>
+          <th>Buy Price</td>
+          <th>Buy Date</td>
+        </tr>
+        <tr ng-repeat="x in portfolio.owned">
+          <td>{{ x.name }}</td>
+          <td>{{ x.qty }}</td>
+          <td>{{ x.bPrice }}</td>
+          <td>{{ x.bDate }}</td>
+        </tr>
+      </table>
     </div>
 
     <div class="row">
+      <h2>History</h2>
+      <table>
+        <tr>
+          <th>Stock</td>
+          <th>Qty</td>
+          <th>Buy Price</td>
+          <th>Buy Date</td>
+          <th>Sell Price</td>
+          <th>Sell Date</td>
+        </tr>
+        <tr ng-repeat="x in portfolio.history">
+          <td>{{ x.name }}</td>
+          <td>{{ x.qty }}</td>
+          <td>{{ x.bPrice }}</td>
+          <td>{{ x.bDate }}</td>
+          <td>{{ x.sPrice }}</td>
+          <td>{{ x.sDate }}</td>
+        </tr>
+      </table>
+    </div>
 
 </div>

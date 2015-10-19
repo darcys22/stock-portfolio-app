@@ -2,14 +2,6 @@ body {
   background-image: url('../images/bg.png');
 }
 
-#logo {
-  background-image: url('../images/logo.png');
-  width: 95;
-  height: 35;
-  background-position: center;
-  background-size: cover;
-}
-
 .alert-material {
   position: fixed;
   right: 12px;

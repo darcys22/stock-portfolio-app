@@ -2,17 +2,19 @@ var User = require('./models/user')
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var configDB = require('../config/database.js');
 
+var stocks = require('./controllers/stocks.js');
 
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
     
+    app.get('/api/portfolio', passport.authenticate('jwt', { session: false }), stocks.get);
+
     app.get('/api/user', passport.authenticate('jwt', { session: false }), function(req, res) {
       User.findOne({}, function(err, users) {
         res.json(users);
       });
     });
-
 
     // PROFILE SECTION =========================
     //app.get('/profile', isLoggedIn, function(req, res) {
