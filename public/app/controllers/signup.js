@@ -15,8 +15,6 @@ angular.module('myApp.signup', ['ngRoute'])
 
   $scope.submit = function() {
     $auth.signup({
-      companyName: $scope.name,
-      businessNumber: $scope.abn,
       email: $scope.email,
       password: $scope.password
     }).then(function() {

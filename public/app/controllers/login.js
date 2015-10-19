@@ -12,11 +12,9 @@ angular.module('myApp.login', ['ngRoute'])
 }])
 
 .controller('LoginController', ['$scope', '$alert', '$auth', '$location', function($scope, $alert, $auth, $location) {
-    $scope.rememberMe = false;
 
     $scope.submit = function() {
-      //$auth.setStorage($scope.rememberMe ? 'localStorage' : 'sessionStorage');
-      $auth.login({ email: $scope.email, password: $scope.password, rememberMe: $scope.rememberMe })
+      $auth.login({ email: $scope.email, password: $scope.password })
         .then(function() {
           $location.path('/settings');
           $alert({

@@ -1,6 +1,17 @@
+var User = require('./models/user')
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var configDB = require('../config/database.js');
+
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
+    
+    app.get('/api/user', passport.authenticate('jwt', { session: false }), function(req, res) {
+      User.findOne({}, function(err, users) {
+        res.json(users);
+      });
+    });
 
 
     // PROFILE SECTION =========================
@@ -17,26 +28,37 @@ module.exports = function(app, passport) {
     //});
 
 // =============================================================================
-// AUTHENTICATE (FIRST LOGIN) ==================================================
+// AUTHENTICATE ================================================================
 // =============================================================================
 
 // locally --------------------------------
     // LOGIN ===============================
     // process the login form
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/login', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
+    app.post('/api/signIn', function(req, res, next) {
+      passport.authenticate('local-login', {session : false}, function(err, user, info) { 
+        if(err) { return next(err) }
+        if (!user) {
+          res.json({ success: false, message: 'Authentication failed.' }); 
+        }
+
+        var token = jwt.sign({'sub': user._id}, configDB.secret, {
+          expiresIn: 1440 * 60
+        });
+
+        res.json({token: token});
+      })(req, res, next);
+    });
 
     // SIGNUP =================================
     // process the signup form
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
+    app.post('/api/signUp', passport.authenticate('local-signup', { session : false}), function (req, res) {
+      res.json({success : true})
+    });
 
+
+// =============================================================================
+// Front End Routes ============================================================
+// =============================================================================
     // show the home page (will also have our login links)
     app.get('*', function(req, res) {
         res.sendfile('./dist/index.html');

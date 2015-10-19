@@ -13,9 +13,6 @@ var myApp = angular.module('myApp', [
 ])
 
 .config(['$routeProvider','$locationProvider', '$httpProvider', '$authProvider', function($routeProvider, $locationProvider, $httpProvider, $authProvider) {
-  //$routeProvider.otherwise({
-    //redirectTo: '/landing'
-  //});
 
   $httpProvider.interceptors.push(function($q, $injector) {
     return {
@@ -23,17 +20,8 @@ var myApp = angular.module('myApp', [
         // Add auth token for Silhouette if user is authenticated
         var $auth = $injector.get('$auth');
         if ($auth.isAuthenticated()) {
-          request.headers['X-Auth-Token'] = $auth.getToken();
+          request.headers['Authorization'] = 'JWT ' + $auth.getToken();
         }
-
-        // Add CSRF token for the Play CSRF filter
-        //var cookies = $injector.get('$cookies');
-        //var token = cookies.get('PLAY_CSRF_TOKEN');
-        //if (token) {
-          //// Play looks for a token with the name Csrf-Token
-          //// https://www.playframework.com/documentation/2.4.x/ScalaCsrf
-          //request.headers['Csrf-Token'] = token;
-        //}
 
         return request;
       },
@@ -60,7 +48,7 @@ var myApp = angular.module('myApp', [
   $authProvider.signupUrl = '/api/signUp';
   $authProvider.tokenName = 'token';
   $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
-  $authProvider.authHeader = 'X-Auth-Token';
+  $authProvider.authHeader = 'Authorization';
   $authProvider.platform = 'browser';
   $authProvider.storage = 'localStorage';
 

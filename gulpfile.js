@@ -37,7 +37,7 @@ gulp.task('demon', function () {
     //}
   })
     .on('start', ['watch'])
-    //.on('change', ['watch'])
+    .on('change', ['watch'])
     .on('restart', function () {
       console.log('restarted!');
     });

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Stock Portfolio</title>
-  <meta name="description" content="Monitor and Track Stock Portfolio">
+  <meta name="description" content="Monitr and Track Stock Portfolio">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   </meta>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
@@ -37,7 +37,7 @@
         </li>
       </ul>
       <ul ng-show="isAuthenticated()" class="nav navbar-nav navbar-right">
-        <li><a href="/tfnd">TFND</a></li>
+        <li><a href="/portfolio">Portfolio</a></li>
         <li>
           <p class="navbar-btn">
             <div class="btn-group" dropdown is-open="status.isopen">
@@ -50,8 +50,7 @@
                 <li role="menuitem"><a href="/settings">Settings</a></li>
                 <li role="menuitem"><a href ng-click="logout()">Logout</a></li>
                 <li class="divider"></li>
-                <!--<li role="menuitem"><a>{{user.companyName}}</a></li>-->
-                <li role="menuitem"><a>TEST NAME</a></li>
+                <li role="menuitem"><a>{{user.email}}</a></li>
               </ul>
             </div>
           </p>
