@@ -6,56 +6,64 @@
 
 <form name="registration_form" id='registration_form' class="form-inline">
   <div class="row">
-      <div class="form-group col-xs-3">
+      <div class="form-group col-xs-2 col-sm-offset-2">
           <label for="stock" class="sr-only"></label>
-          <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="firstname"
-                 title="Stock"
-                 placeholder="Stock"/>
+          <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="firstname" ng-required="true" ng-model="name" title="Stock" placeholder="Stock"/>
+      </div>
+
+      <div class="form-group col-xs-1">
+          <label for="qty" class="sr-only"></label>
+          <input id="qty" class="form-control input-group-lg reg_name" type="text" name="lastname" ng-required="true" ng-model="qty" title="qty" placeholder="qty"/>
+      </div>
+      <div class="form-group col-xs-2">
+          <label for="price" class="sr-only"></label>
+          <p class="input-group">
+            <span class="input-group-addon">$</span>
+            <input id="price" class="form-control input-group-lg reg_name" type="text" name="lastname" title="price" ng-required="true" ng-model="price" placeholder="price"/>
+           </p>
       </div>
 
       <div class="form-group col-xs-2">
-          <label for="qty" class="sr-only"></label>
-          <input id="qty" class="form-control input-group-lg reg_name" type="text" name="lastname"
-                 title="qty"
-                 placeholder="qty"/>
-      </div>
-      <div class="form-group col-xs-3">
-          <label for="price" class="sr-only"></label>
-          <input id="price" class="form-control input-group-lg reg_name" type="text" name="lastname"
-                 title="price"
-                 placeholder="price"/>
-      </div>
-      <div class="form-group col-xs-3">
           <label for="date" class="sr-only"></label>
-          <input id="date" class="form-control input-group-lg reg_name" type="text" name="lastname"
-                 title="date"
-                 placeholder="date"/>
-     </div>
-               <button class="btn btn-success dropdown-toggle" type="button" id="single-button"><i class="fa fa-plus"></i></button>
+        <p class="input-group">
+          <input type="text" id="date" class="form-control input-group-lg reg_name" uib-datepicker-popup="{{format}}" ng-model="bDate" is-open="status.opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" placeholder="date" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open(1)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+      <button class="btn btn-success dropdown-toggle" type="submit" id="single-button"><i class="fa fa-plus"></i></button>
   </div>
 </form>
+<br>
 
     <div class="row">
+    <div class="page-header text-center">
       <h2> Current</h2>
-      <table>
+    </div>
+      <table class="table">
         <tr>
-          <th>Stock</td>
-          <th>Qty</td>
-          <th>Buy Price</td>
-          <th>Buy Date</td>
+          <th>Stock</th>
+          <th>Qty</th>
+          <th>Buy Price</th>
+          <th>Buy Date</th>
+          <th></th>
         </tr>
         <tr ng-repeat="x in portfolio.owned">
           <td>{{ x.name }}</td>
           <td>{{ x.qty }}</td>
           <td>{{ x.bPrice }}</td>
           <td>{{ x.bDate }}</td>
+          <td> <button class="btn btn-danger" type="button" id="single-button" ng-click="sell(x)"><i class="fa fa-minus"></i></button> </td>
         </tr>
       </table>
     </div>
 
     <div class="row">
+    <div class="page-header text-center">
       <h2>History</h2>
-      <table>
+    </div>
+      <table class="table">
         <tr>
           <th>Stock</td>
           <th>Qty</td>

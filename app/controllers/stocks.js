@@ -8,6 +8,16 @@
       res.sendfile('./app/controllers/portfolio.json');
     },
 
+    buy: function(req, res) {
+      console.log(req.body);
+      res.json({lel: 'BAUGHT'});
+    },
+   
+    sell: function(req, res) {
+      console.log(req.body);
+      res.json({lel: 'SALD'});
+    }
+
     //topBooks: function(req, res) {
       //Book
       //.find({rank : {$gt : 0}})
