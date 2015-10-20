@@ -3,8 +3,8 @@
 var myApp = angular.module('myApp', [
   'ngRoute',
   'satellizer',
-  'ui.bootstrap',
   'mgcrea.ngStrap',
+  'fiestah.money',
   'myApp.login',
   'myApp.signup',
   'myApp.portfolio',

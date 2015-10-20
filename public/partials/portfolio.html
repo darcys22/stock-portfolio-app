@@ -1,38 +1,39 @@
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Portfolio</h1>
+      <h1><span class="fa fa-anchor"></span> Portfolio </h1>
       </div>
 
-<form name="registration_form" id='registration_form' class="form-inline">
+<form name="buy" id='buy' class="form-inline" ng-submit="submit()" autocomplete="off">
   <div class="row">
       <div class="form-group col-xs-2 col-sm-offset-2">
           <label for="stock" class="sr-only"></label>
-          <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="firstname" ng-required="true" ng-model="name" title="Stock" placeholder="Stock"/>
+          <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="Stock Name" ng-required="true" ng-model="name" title="Stock" placeholder="Stock"/>
       </div>
 
       <div class="form-group col-xs-1">
           <label for="qty" class="sr-only"></label>
-          <input id="qty" class="form-control input-group-lg reg_name" type="text" name="lastname" ng-required="true" ng-model="qty" title="qty" placeholder="qty"/>
+          <input id="qty" class="form-control input-group-lg reg_name" type="number" name="qty" ng-required="true" ng-model="qty" title="qty" placeholder="qty"/>
       </div>
       <div class="form-group col-xs-2">
           <label for="price" class="sr-only"></label>
           <p class="input-group">
             <span class="input-group-addon">$</span>
-            <input id="price" class="form-control input-group-lg reg_name" type="text" name="lastname" title="price" ng-required="true" ng-model="price" placeholder="price"/>
+            <input id="price" class="form-control input-group-lg reg_name" type="text" name="price" title="price" ng-required="true" ng-model="price" placeholder="price" money/>
            </p>
       </div>
 
       <div class="form-group col-xs-2">
           <label for="date" class="sr-only"></label>
-        <p class="input-group">
-          <input type="text" id="date" class="form-control input-group-lg reg_name" uib-datepicker-popup="{{format}}" ng-model="bDate" is-open="status.opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" placeholder="date" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open(1)"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
+          <input type="text"  
+          class="form-control input-group-lg reg_name"
+          ng-model="bDate"
+          ng-required="true"
+          placeholder="date" 
+          data-date-format="dd MMM yyyy"
+          bs-datepicker>
       </div>
-      <button class="btn btn-success dropdown-toggle" type="submit" id="single-button"><i class="fa fa-plus"></i></button>
+      <button class="btn btn-success" type="submit" id="single-button"><i class="fa fa-plus"></i></button>
   </div>
 </form>
 <br>

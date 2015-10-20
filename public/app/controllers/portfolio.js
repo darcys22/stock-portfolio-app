@@ -27,7 +27,16 @@ angular.module('myApp.portfolio', ['ngRoute'])
         duration: 3
       })
     }
-  )
+  );
+  
+  $scope.submit = function() {
+      $alert({
+        content: $scope.bDate + $scope.price + $scope.qty + $scope.name,
+        animation: 'fadeZoomFadeDown',
+        type: 'material',
+        duration: 3
+      })
+  };
 
 }]);
 

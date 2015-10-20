@@ -17,6 +17,7 @@
     "angular-bootstrap": "~0.13.4",
     "angular-route": "~1.4.6",
     "angular-strap": "~2.3.3",
+    "bootstrap-additions": "~0.3.1",
     "satellizer": "~0.12.5"
   },
   "homepage": "",

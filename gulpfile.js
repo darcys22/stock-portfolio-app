@@ -51,7 +51,7 @@ gulp.task('build', ['clean'], function () {
             //js: [plugins.ngAnnotate(), plugins.stripDebug(), plugins.uglify(), plugins.rev()],
             js: [],
             vendorjs: [plugins.rev()],
-            //vendorcss: [plugins.minifyCss(), 'concat', plugins.rev()],
+            vendorcss: [plugins.minifyCss(), 'concat', plugins.rev()],
             css: [plugins.minifyCss(), 'concat', plugins.rev()],
             templateCache: [
                 plugins.addSrc(['public/partials/**/*.html']),
