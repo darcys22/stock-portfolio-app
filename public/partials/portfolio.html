@@ -8,18 +8,19 @@
   <div class="row">
       <div class="form-group col-xs-2 col-sm-offset-2">
           <label for="stock" class="sr-only"></label>
-          <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="Stock Name" ng-required="true" ng-model="name" title="Stock" placeholder="Stock"/>
+          <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="Stock Name" ng-required="true" ng-model="buy.name" title="Stock" placeholder="Stock"/>
       </div>
 
       <div class="form-group col-xs-1">
           <label for="qty" class="sr-only"></label>
-          <input id="qty" class="form-control input-group-lg reg_name" type="number" name="qty" ng-required="true" ng-model="qty" title="qty" placeholder="qty"/>
+          <input id="qty" class="form-control input-group-lg reg_name" type="number" name="qty" ng-required="true" ng-model="buy.qty" title="qty" placeholder="qty"/>
       </div>
       <div class="form-group col-xs-2">
           <label for="price" class="sr-only"></label>
           <p class="input-group">
             <span class="input-group-addon">$</span>
-            <input id="price" class="form-control input-group-lg reg_name" type="text" name="price" title="price" ng-required="true" ng-model="price" placeholder="price" money/>
+            <!--<input id="price" class="form-control input-group-lg reg_name" type="text" name="price" title="price" ng-required="true" ng-model="buy.bPrice" placeholder="price" money/>-->
+            <input id="price" class="form-control input-group-lg reg_name" type="text" name="price" title="price" ng-required="true" ng-model="buy.bPrice" placeholder="price"/>
            </p>
       </div>
 
@@ -27,7 +28,7 @@
           <label for="date" class="sr-only"></label>
           <input type="text"  
           class="form-control input-group-lg reg_name"
-          ng-model="bDate"
+          ng-model="buy.bDate"
           ng-required="true"
           placeholder="date" 
           data-date-format="dd MMM yyyy"
@@ -47,14 +48,14 @@
           <th>Stock</th>
           <th>Qty</th>
           <th>Buy Price</th>
-          <th>Buy Date</th>
           <th></th>
         </tr>
         <tr ng-repeat="x in portfolio.owned">
           <td>{{ x.name }}</td>
           <td>{{ x.qty }}</td>
-          <td>{{ x.bPrice }}</td>
-          <td>{{ x.bDate }}</td>
+          <!--<td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>-->
+          <!--<td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice}}</a></td>-->
+          <td>
           <td> <button class="btn btn-danger" type="button" id="single-button" ng-click="sell(x)"><i class="fa fa-minus"></i></button> </td>
         </tr>
       </table>
@@ -69,17 +70,17 @@
           <th>Stock</td>
           <th>Qty</td>
           <th>Buy Price</td>
-          <th>Buy Date</td>
           <th>Sell Price</td>
-          <th>Sell Date</td>
         </tr>
         <tr ng-repeat="x in portfolio.history">
           <td>{{ x.name }}</td>
           <td>{{ x.qty }}</td>
-          <td>{{ x.bPrice }}</td>
-          <td>{{ x.bDate }}</td>
-          <td>{{ x.sPrice }}</td>
-          <td>{{ x.sDate }}</td>
+          <!--<td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>-->
+          <!--<td><a bs-tooltip data-type="info" data-title="{{x.sDate | date:'dd MMM yyyy'}}">{{ x.sPrice | currency}}</a></td>-->
+          <!--<td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice}}</a></td>-->
+          <!--<td><a bs-tooltip data-type="info" data-title="{{x.sDate | date:'dd MMM yyyy'}}">{{ x.sPrice}}</a></td>-->
+          <td>
+          <td>
         </tr>
       </table>
     </div>
