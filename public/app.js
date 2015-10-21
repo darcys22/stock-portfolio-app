@@ -2,6 +2,7 @@
 
 var myApp = angular.module('myApp', [
   'ngRoute',
+  'ngSanitize',
   'satellizer',
   'mgcrea.ngStrap',
   'fiestah.money',
