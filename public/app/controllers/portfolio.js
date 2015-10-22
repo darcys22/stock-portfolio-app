@@ -11,7 +11,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
   });
 }])
 
-.controller('PortfolioController', ['$scope', '$http', 'TFNDFactory', 'StockFactory', '$alert', function($scope, $http, TFNDFactory, StockFactory, $alert) {
+.controller('PortfolioController', ['$scope', '$http','$modal' ,'TFNDFactory', 'StockFactory', '$alert', function($scope, $http, $modal, TFNDFactory, StockFactory, $alert) {
 
   $scope.portfolio = {};
   $scope.loading = true;
@@ -36,15 +36,14 @@ angular.module('myApp.portfolio', ['ngRoute'])
         type: 'material',
         duration: 3
       });
-      //$scope.portfolio.owned.unshift($scope.buy);
+      $scope.portfolio.owned.unshift($scope.buy);
   };
 
-  //var stockModal = $modal({title: 'My Title', content: 'My Content', show: true});
-    ////var myOtherModal = $modal({scope: $scope, template: 'modal/docs/modal.demo.tpl.html', show: false});
+  var stockModal = $modal({scope: $scope, template: 'partials/modal.html', show: false});
 
-  //$scope.sell = function(stock) {
-    //stockModal.$promise.then(stockModal.show);
-  //};
+  $scope.sell = function(stock) {
+    stockModal.$promise.then(stockModal.show);
+  };
 
 
 

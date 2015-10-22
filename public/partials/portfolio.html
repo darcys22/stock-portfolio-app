@@ -13,7 +13,7 @@
 
       <div class="form-group col-xs-1">
           <label for="count" class="sr-only"></label>
-          <input id="count" class="form-control input-group-lg reg_name" type="number" ng-required="true" ng-model="buy.count" placeholder="qty"/>
+          <input id="count" class="form-control input-group-lg reg_name" type="number" ng-required="true" ng-model="buy.qty" placeholder="qty"/>
       </div>
       <div class="form-group col-xs-2">
           <label for="price" class="sr-only"></label>
@@ -54,8 +54,6 @@
           <td>{{ x.qty }}</td>
           <!--<td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>-->
           <td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice}}</a></td>
-          <td>
-          <td>
           <td> <button class="btn btn-danger" type="button" id="single-button" ng-click="sell(x)"><i class="fa fa-minus"></i></button> </td>
         </tr>
       </table>

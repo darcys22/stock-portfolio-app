@@ -6,6 +6,7 @@ var myApp = angular.module('myApp', [
   'satellizer',
   'mgcrea.ngStrap',
   'fiestah.money',
+  'ngAnimate',
   'myApp.login',
   'myApp.signup',
   'myApp.portfolio',
