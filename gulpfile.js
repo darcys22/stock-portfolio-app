@@ -24,8 +24,8 @@ gulp.task('notify', ['build'], function() {
 });
 
 gulp.task('copy', [], function() {
-  //gulp.src(['public/assets/fonts/**/*'], {base: 'public'})
-  //.pipe(gulp.dest('dist/'));
+  gulp.src(['public/assets/fonts/**/*'], {base: 'public'})
+  .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('demon', function () {

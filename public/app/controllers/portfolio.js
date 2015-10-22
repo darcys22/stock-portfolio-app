@@ -39,6 +39,13 @@ angular.module('myApp.portfolio', ['ngRoute'])
       //$scope.portfolio.owned.unshift($scope.buy);
   };
 
+  //var stockModal = $modal({title: 'My Title', content: 'My Content', show: true});
+    ////var myOtherModal = $modal({scope: $scope, template: 'modal/docs/modal.demo.tpl.html', show: false});
+
+  //$scope.sell = function(stock) {
+    //stockModal.$promise.then(stockModal.show);
+  //};
+
 
 
   //Dummy Data because ajax was being annoying

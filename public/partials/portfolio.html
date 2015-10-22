@@ -51,9 +51,9 @@
         </tr>
         <tr ng-repeat="x in portfolio.owned">
           <td>{{ x.name }}</td>
-          <!--<td>{{ x.qty }}</td>-->
+          <td>{{ x.qty }}</td>
           <!--<td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>-->
-          <!--<td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice}}</a></td>-->
+          <td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice}}</a></td>
           <td>
           <td>
           <td> <button class="btn btn-danger" type="button" id="single-button" ng-click="sell(x)"><i class="fa fa-minus"></i></button> </td>
@@ -74,13 +74,11 @@
         </tr>
         <tr ng-repeat="x in portfolio.history">
           <td>{{ x.name }}</td>
-          <!--<td>{{ x.qty }}</td>-->
+          <td>{{ x.qty }}</td>
           <!--<td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>-->
           <!--<td><a bs-tooltip data-type="info" data-title="{{x.sDate | date:'dd MMM yyyy'}}">{{ x.sPrice | currency}}</a></td>-->
-          <!--<td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice}}</a></td>-->
-          <!--<td><a bs-tooltip data-type="info" data-title="{{x.sDate | date:'dd MMM yyyy'}}">{{ x.sPrice}}</a></td>-->
-          <td>
-          <td>
+          <td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice}}</a></td>
+          <td><a bs-tooltip data-type="info" data-title="{{x.sDate | date:'dd MMM yyyy'}}">{{ x.sPrice}}</a></td>
           <td>
         </tr>
       </table>
