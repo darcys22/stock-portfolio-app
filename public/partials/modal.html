@@ -10,8 +10,8 @@
       <!--<div class="modal-body" ng-show="content">-->
       <div class="modal-body">
 
-        <h4>You have 22 shares of qan.ax</h4>
-        <h4>--- Currently Valued at $91.08 a share</h4>
+        <h4>You have {{sellStock.qty}} shares of {{sellStock.name}}</h4>
+        <h4>--- Currently Valued at {{sellStock.bPrice | currency }} a share</h4>
         <!--<p ng-bind-html="content"></p>-->
         <br>
 
@@ -19,7 +19,7 @@
 
       <div class="form-group col-xs-2">
           <label for="count" class="sr-only"></label>
-          <input id="count" class="form-control input-group-lg reg_name" type="number" ng-required="true" ng-model="buy.qty" placeholder="qty"/>
+          <input id="count" class="form-control input-group-lg reg_name" type="number" ng-required="true" ng-model="sellForm.qty" placeholder="qty"/>
         </div>
 
 
@@ -27,7 +27,7 @@
           <label for="price" class="sr-only"></label>
           <p class="input-group">
             <span class="input-group-addon">$</span>
-            <input id="price" class="form-control input-group-lg reg_name" type="text" name="price" title="price" ng-required="true" ng-model="buy.bPrice" placeholder="price" money/>
+            <input id="price" class="form-control input-group-lg reg_name" type="text" name="price" title="price" ng-required="true" ng-model="sellForm.sPrice" placeholder="price" money/>
            </p>
          </div>
 
@@ -36,8 +36,7 @@
           <label for="date" class="sr-only"></label>
           <input type="text"  
           class="form-control input-group-lg reg_name"
-          ng-model="buy.bDate"
-          ng-required="true"
+          ng-model="sellForm.sDate"
           placeholder="date (Optional)" 
           data-date-format="dd MMM yyyy"
           bs-datepicker>
