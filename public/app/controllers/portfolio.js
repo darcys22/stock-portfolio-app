@@ -38,14 +38,17 @@ angular.module('myApp.portfolio', ['ngRoute'])
   //);
  
   var _timeout; 
+  $scope.invalidStock = true
   $scope.searchChanged = function (searchQuery) {
+    $scope.invalidStock = true
     if(_timeout){ //if there is already a timeout in process cancel it
       $timeout.cancel(_timeout);
     }
     if (searchQuery) {
       _timeout = $timeout(function(){
         console.log("bark bark");
-        //findBooks(searchQuery);
+        yqlBuilder('"' + searchQuery + '"');
+        //TODO actually search for the stock. Return Price, Change Voluem Mkt Cap last trade & invalidstock = false
         _timeout = null;
       },800);
     }
@@ -82,6 +85,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
   //Yahoo query builder
   var qts = $scope.portfolio.owned.map(function(x) { return '"' + x.name + '"'; }).join(', ');
   yqlBuilder(qts);
+  //TODO search for the stocks, add the current price to their objects
 
 }]);
 
