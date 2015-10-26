@@ -18,6 +18,16 @@ var jwt = require('jsonwebtoken');
 
 var configDB = require('./config/database.js');
 
+var allowCrossDomain = function(req, res, next) {
+    //res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Origin', 'query.yahooapis.com');
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
+    //res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+}
+
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
 
@@ -28,6 +38,7 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(allowCrossDomain);
 
 app.use(express.static(__dirname + '/dist'));
 

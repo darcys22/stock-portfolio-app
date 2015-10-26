@@ -14,7 +14,15 @@ var myApp = angular.module('myApp', [
   'myApp.landing'
 ])
 
-.config(['$routeProvider','$locationProvider', '$httpProvider', '$authProvider', function($routeProvider, $locationProvider, $httpProvider, $authProvider) {
+.config(['$sceDelegateProvider', '$routeProvider','$locationProvider', '$httpProvider', '$authProvider', function($sceDelegateProvider ,$routeProvider, $locationProvider, $httpProvider, $authProvider) {
+
+  $sceDelegateProvider.resourceUrlWhitelist(['self', 'query.yahooapis.com/**']);
+
+  $httpProvider.defaults.useXDomain = true;
+  $httpProvider.defaults.withCredentials = true;
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  $httpProvider.defaults.headers.common["Accept"] = "application/json";
+  $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
 
   $httpProvider.interceptors.push(function($q, $injector) {
     return {

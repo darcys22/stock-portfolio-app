@@ -4,22 +4,11 @@
       <h1><span class="fa fa-anchor"></span> Portfolio </h1>
       </div>
 
-<div id="Stocks">
-  <span class="Symbol">
-    <b class="Stat"><i data-replace='Symbol'>{{buy.name}}</i></b>
-  </span>
-  <span class="Price"><b class="Label">Last Price</b> <b class="Stat">$<i data-replace='BidRealtime'></i></b></span>
-  <span class="Change"><b class="Label">Change</b> <b class="Stat"><i data-replace='Change'></i></b> <b class="Stat">(<i data-replace='ChangeinPercent'></i>)</b></span>
-  <span class="Volume"><b class="Label">Volume</b> <b class="Stat" data-replace='Volume'></b></span>
-  <span class="MarketCapitalization"><b class="Label">Mkt Cap</b> <b class="Stat">$<i data-replace="MarketCapitalization"></i></b></span>
-  <span class="LastUpdated"><b class="Label">Last Trade</b> <b class="Stat"><i data-replace='LastTradeDate'></i> <i data-replace="LastTradeTime"></i> </b></span>
-</div>
-<br>
 <form name="buy" class="form-inline" ng-submit="submit()" autocomplete="off">
   <div class="row">
       <div class="form-group col-xs-2 col-sm-offset-2">
           <label for="stock" class="sr-only"></label>
-          <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="Stock Name" ng-required="true" ng-model="buy.name" ng-change="searchChanged(buy.name)" title="Stock" placeholder="Stock"/>
+          <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="Stock Name" ng-required="true" ng-model="buy.name" ng-class="{'has-error':invalidStock && buy.name}" ng-change="searchChanged(buy.name)" title="Stock" placeholder="Stock"/>
       </div>
 
       <div class="form-group col-xs-1">
@@ -48,6 +37,17 @@
       <button class="btn btn-success" ng-disabled="invalidStock" type="submit" id="single-button"><i class="fa fa-plus"></i></button>
   </div>
 </form>
+<br>
+<div id="Stocks" ng-hide="invalidStock">
+  <span class="Symbol">
+    <b class="Stat"><i data-replace='Symbol'>{{buy.name}}</i>:<i data-replace='StockExchange'>{{searchStock.StockExchange}}</i></b>
+    <b class="Label">( <i data-replace='Name'>{{searchStock.Name}}</i> )</b>
+  <span class="Price"><b class="Label">Last Price</b> <b class="Stat">$<i data-replace='BidRealtime'>{{searchStock.LastTradePriceOnly}}</i></b></span>
+  <span class="Change"><b class="Label">Change</b> <b class="Stat"><i data-replace='Change'>{{searchStock.Change}}</i></b> <b class="Stat">(<i data-replace='ChangeinPercent'>{{searchStock.ChangeinPercent}}</i>)</b></span>
+  <span class="Volume"><b class="Label">Volume</b> <b class="Stat" data-replace='Volume'>{{searchStock.Volume}}</b></span>
+  <span class="MarketCapitalization"><b class="Label">Mkt Cap</b> <b class="Stat">$<i data-replace="MarketCapitalization">{{searchStock.MarketCapitalization}}</i></b></span>
+  <span class="LastUpdated"><b class="Label">Last Trade</b> <b class="Stat"><i data-replace='LastTradeDate'>{{searchStock.LastTradeTime}}</i> <i data-replace="LastTradeTime"></i> </b></span>
+</div>
 <br>
 
     <div class="row">

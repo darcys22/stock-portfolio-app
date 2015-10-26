@@ -5,7 +5,7 @@ var yqlBuilder = function (quotes) {
   console.log(quotes);
   var query = "select * from yahoo.finance.quotes where symbol in (" + quotes + ")";
   console.log(query);
-  var yql = "http://query.yahooapis.com/v1/public/yql?q=" + escape(query) + "&format=json&env=http://datatables.org/alltables.env";
+  return "http://query.yahooapis.com/v1/public/yql?q=" + escape(query) + "&format=json&env=http://datatables.org/alltables.env";
 };
 
 angular.module('myApp.portfolio', ['ngRoute'])
@@ -39,6 +39,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
  
   var _timeout; 
   $scope.invalidStock = true
+  $scope.searchStock = {}
   $scope.searchChanged = function (searchQuery) {
     $scope.invalidStock = true
     if(_timeout){ //if there is already a timeout in process cancel it
@@ -47,7 +48,18 @@ angular.module('myApp.portfolio', ['ngRoute'])
     if (searchQuery) {
       _timeout = $timeout(function(){
         console.log("bark bark");
-        yqlBuilder('"' + searchQuery + '"');
+        $scope.searchStock = StockFactory.getYQL( yqlBuilder('"' + searchQuery + '"'));
+        $scope.searchStock.then(function (stock) {
+          console.log(stock)
+          $scope.searchStock = stock.query.results.quote;
+          console.log($scope.searchStock);
+          if ($scope.searchStock.Ask === null) {
+            $scope.searchStock = {}
+          } else {
+            $scope.invalidStock = false;
+          }
+        })
+
         //TODO actually search for the stock. Return Price, Change Voluem Mkt Cap last trade & invalidstock = false
         _timeout = null;
       },800);
