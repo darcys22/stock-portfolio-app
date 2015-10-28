@@ -59,12 +59,16 @@
           <th>Stock</th>
           <th>Qty</th>
           <th>Buy Price</th>
+          <th>Current Price</th>
+          <th>Profit</th>
           <th></th>
         </tr>
         <tr ng-repeat="x in portfolio.owned">
-          <td>{{ x.name }}</td>
+          <td>{{ x.Name }}</td>
           <td>{{ x.qty }}</td>
-          <td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>
+          <td><a bs-tooltip data-type="info" data-title="Buy Date: {{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>
+          <td><a bs-tooltip data-type="info" data-title="Change: {{x.ChangeinPercent}}">{{ x.Ask | currency}}</a></td>
+          <td ng-init="itemTotal = (x.Ask - x.bPrice)*x.qty; ownedProfit = ownedProfit + itemTotal"><a bs-tooltip data-type="info" data-title="Individual Share Profit: {{(x.Ask-x.bPrice)| currency}}">{{itemTotal</a> | currency}}</a></td>
           <td> <button class="btn btn-danger" type="button" id="single-button" ng-click="sell(x)"><i class="fa fa-minus"></i></button> </td>
         </tr>
       </table>
@@ -76,17 +80,25 @@
     </div>
       <table class="table">
         <tr>
-          <th>Stock</td>
-          <th>Qty</td>
-          <th>Buy Price</td>
-          <th>Sell Price</td>
+          <th>Stock</th>
+          <th>Qty</th>
+          <th>Buy Price</th>
+          <th>Sell Price</th>
+          <th>Profit</th>
         </tr>
         <tr ng-repeat="x in portfolio.history">
           <td>{{ x.name }}</td>
           <td>{{ x.qty }}</td>
-          <td><a bs-tooltip data-type="info" data-title="{{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>
-          <td><a bs-tooltip data-type="info" data-title="{{x.sDate | date:'dd MMM yyyy'}}">{{ x.sPrice | currency}}</a></td>
-          <td>
+          <td><a bs-tooltip data-type="info" data-title="Buy Date: {{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>
+          <td><a bs-tooltip data-type="info" data-title="Sell Date: {{x.sDate | date:'dd MMM yyyy'}}">{{ x.sPrice | currency}}</a></td>
+          <td ng-init="itemTotal = (x.sPrice - x.bPrice)*x.qty; soldProfit = soldProfit + itemTotal"><a bs-tooltip data-type="info" data-title="Individual Share Profit: {{(x.sPrice-x.bPrice)| currency}}">{{ itemTotal | currency}}</a></td>
+        </tr>
+        <tr >
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Total Profit: </td>
+          <td>{{ soldProfit | currency}}</td>
         </tr>
       </table>
     </div>
