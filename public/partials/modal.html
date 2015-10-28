@@ -10,9 +10,11 @@
       <!--<div class="modal-body" ng-show="content">-->
       <div class="modal-body">
 
-        <h4>You have {{sellStock.qty}} shares of {{sellStock.name}}</h4>
-        <h4>--- Currently Valued at {{sellStock.bPrice | currency }} a share</h4>
+        <h4>You have {{sellStock.qty}} shares of {{sellStock.Name}}</h4>
+        <h4>--- Currently Valued at {{sellStock.LastTradePriceOnly | currency }} a share</h4>
         <!--<p ng-bind-html="content"></p>-->
+        <br>
+        <h4>How many would you like to sell?</h4>
         <br>
 
         <form name="buy" class="form-inline" ng-submit="submit()" autocomplete="off">
