@@ -2,9 +2,7 @@
   'use strict';
 
 var yqlBuilder = function (quotes) {
-  console.log(quotes);
   var query = "select * from yahoo.finance.quotes where symbol in (" + quotes + ")";
-  console.log(query);
   return "http://query.yahooapis.com/v1/public/yql?q=" + escape(query) + "&format=json&env=http://datatables.org/alltables.env";
 };
 
@@ -85,9 +83,22 @@ angular.module('myApp.portfolio', ['ngRoute'])
     stockModal.$promise.then(stockModal.show);
   };
 
-  $scope.currentProfit = 0;
-  $scope.soldProfit = 0;
+  // History Show
+  $scope.historyActive = false;
+  $scope.historyButton = function() {
+    $scope.historyActive = !$scope.historyActive;
+  }  
 
+  // Profit Calculations
+  $scope.ownedProfit = 0;
+  $scope.soldProfit = 0;
+  $scope.ownedProfitAdd = function(x) {
+    $scope.ownedProfit += x;
+  };
+  $scope.soldProfitAdd = function(x) {
+    $scope.soldProfit += x;
+  };
+  
 
 
   //Dummy Data because ajax was being annoying
