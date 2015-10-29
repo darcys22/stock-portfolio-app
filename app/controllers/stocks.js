@@ -7,6 +7,10 @@
     get: function(req, res) {
       res.sendfile('./app/controllers/portfolio.json');
     },
+    
+    getHistory: function(req, res) {
+      res.sendfile('./app/controllers/portfolio.json');
+    },
 
     buy: function(req, res) {
       console.log(req.body);

@@ -25,12 +25,12 @@ angular.module('myApp.portfolio', ['ngRoute'])
   });
 }])
 
-.controller('PortfolioController', ['$scope', '$http','$modal' ,'TFNDFactory', 'StockFactory', '$alert', '$timeout', function($scope, $http, $modal, TFNDFactory, StockFactory, $alert, $timeout) {
+.controller('PortfolioController', ['$scope', '$http','$modal' , 'StockFactory', '$alert', '$timeout', function($scope, $http, $modal, StockFactory, $alert, $timeout) {
 
 
   $scope.portfolio = {};
   $scope.loading = true;
-  //$scope.portfolio = StockFactory.get().then(
+  //$scope.portfolio = StockFactory.getPortfolio().then(
     //function (response) {
       //$scope.loading = false;
       //$scope.portfolio = response.data;
@@ -72,8 +72,13 @@ angular.module('myApp.portfolio', ['ngRoute'])
   
   $scope.submit = function() {
     console.log("yaya")
+    if (!$scope.buy.bDate) {
+      $scope.buy.bDate = new Date;
+    }
+    $scope.buyResponse = StockFactory.buy({name: $scope.buy.name, qty: $scope.buy.qty, bPrice: $scope.buy.bPrice, bDate: $scope.buy.bDate})
     for (var attrname in $scope.searchStock) {$scope.buy[attrname] = $scope.searchStock[attrname];}
     $scope.portfolio.owned.unshift($scope.buy);
+    $scope.buy = {};
   };
 
   var stockModal = $modal({scope: $scope, template: 'partials/modal.html', show: false});
