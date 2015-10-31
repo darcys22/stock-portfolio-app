@@ -1,6 +1,6 @@
 (function () {
 
-  //var Book = require('./../models/Book.js');
+  var User = require('./../models/user.js');
 
   module.exports = {
 
@@ -13,8 +13,19 @@
     },
 
     buy: function(req, res) {
-      console.log(req.body);
-      res.json({lel: 'BAUGHT'});
+      req.user.portfolio.push(req.body)
+      console.log(req.user);
+      req.user.save(function (err, savedPreference) {
+        if (err) 
+          return res.send(500, {error: err});
+          return res.send("successfully saved")
+      })
+      //User.findOneAndUpdate({_id: req.user._id}, req.user, {upsert: true},
+                 //function(err, doc){
+                   //console.log(err)
+                   //if (err) res.send(500, {error: err});
+                   //return res.send("successfully saved")
+                 //})
     },
    
     sell: function(req, res) {
