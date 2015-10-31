@@ -8,7 +8,7 @@ module.exports = function(app, passport) {
 
 // normal routes ===============================================================
     
-    app.get('/api/portfolio', passport.authenticate('jwt', { session: false }), stocks.get);
+    app.get('/api/portfolio', passport.authenticate('jwt', { session: false }), stocks.getPortfolio);
     app.get('/api/history', passport.authenticate('jwt', { session: false }), stocks.getHistory);
     app.post('/api/buy', passport.authenticate('jwt', { session: false }), stocks.buy);
     app.post('/api/sell', passport.authenticate('jwt', { session: false }), stocks.sell);

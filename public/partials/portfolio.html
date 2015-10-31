@@ -6,7 +6,7 @@
 
 <form name="buy" class="form-inline" ng-submit="submit()" autocomplete="off">
   <div class="row">
-      <div class="form-group col-xs-2 col-sm-offset-2">
+      <div class="form-group col-xs-2 col-sm-offset-3">
           <label for="stock" class="sr-only"></label>
           <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="Stock Name" ng-required="true" ng-model="buy.name" ng-class="{'has-error':invalidStock && buy.name}" ng-change="searchChanged(buy.name)" title="Stock" placeholder="Stock"/>
       </div>
@@ -54,6 +54,7 @@
     <div class="page-header text-center">
       <h2> Current</h2>
     </div>
+    <div ng-hide="loading">
       <table class="table">
       <thead>
         <tr>
@@ -65,28 +66,28 @@
           <th></th>
         </tr>
       </thead>
-      <tbody>
-        <tr ng-repeat="x in portfolio.owned">
-          <td>{{ x.Name }}</td>
-          <td>{{ x.qty }}</td>
-          <td><a bs-tooltip data-type="info" data-title="Buy Date: {{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>
-          <td ng-init="itemTotal = (x.Ask - x.bPrice)*x.qty "><a bs-tooltip data-type="info" data-title="Change: {{x.ChangeinPercent}}">{{ x.LastTradePriceOnly | currency}}</a></td>
-          <td ng-init="ownedProfitAdd(itemTotal)"><a ng-class="{ red: itemTotal < 0, green: itemTotal > 1 }" bs-tooltip data-type="info" data-title="Individual Share Profit: {{(x.Ask-x.bPrice)| currency}}">{{itemTotal | currency}}</a></td>
-          <td> <button class="btn btn-danger" type="button" id="single-button" ng-click="sell(x)"><i class="fa fa-minus"></i></button> </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr >
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><b>Current Profit: </b></td>
-          <td ng-class="{ red: ownedProfit < 0 , green: ownedProfit > 1}"><b>{{ ownedProfit | currency}}</b></td>
-          <td></td>
-        </tr>
-      </tfoot>
+        <tbody>
+          <tr ng-repeat="x in portfolio">
+            <td>{{ x.Name }}</td>
+            <td>{{ x.qty }}</td>
+            <td><a bs-tooltip data-type="info" data-title="Buy Date: {{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>
+            <td ><a bs-tooltip data-type="info" data-title="Change: {{x.ChangeinPercent}}">{{ x.LastTradePriceOnly | currency}}</a></td>
+            <td ><a ng-class="{ red: itemTotal < 0, green: itemTotal > 1 }" bs-tooltip data-type="info" data-title="Individual Share Profit: {{(x.individualProfit)| currency}}">{{x.itemTotal | currency}}</a></td>
+            <td> <button class="btn btn-danger" type="button" id="single-button" ng-click="sell(x)"><i class="fa fa-minus"></i></button> </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr >
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><b>Current Profit: </b></td>
+            <td ng-class="{ red: ownedProfit < 0 , green: ownedProfit > 1}"><b>{{ ownedProfit | currency}}</b></td>
+            <td></td>
+          </tr>
+        </tfoot>
       </table>
-    </div>
+    </div></div>
 
     <div class="row">
     <div class="page-header text-center">
@@ -104,7 +105,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="x in portfolio.history">
+        <tr ng-repeat="x in history">
           <td>{{ x.name }}</td>
           <td>{{ x.qty }}</td>
           <td><a bs-tooltip data-type="info" data-title="Buy Date: {{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>

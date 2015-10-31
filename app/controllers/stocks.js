@@ -4,8 +4,31 @@
 
   module.exports = {
 
-    get: function(req, res) {
-      res.sendfile('./app/controllers/portfolio.json');
+    getPortfolio: function(req, res) {
+      var uniques = [];
+      var portfolio = req.user.portfolio;
+      var index, sum;
+      for (var i=0; i < portfolio.length; i++) {
+        index = uniques.map(function(e) { return e.name; }).indexOf(portfolio[i].name); 
+        if (index == -1) {
+          uniques.push(portfolio[i])
+        } else {
+          sum = uniques[index].bPrice * uniques[index].qty + portfolio[i].bPrice * portfolio[i].qty;
+          console.log(index)
+          console.log( uniques[index].bPrice)
+          console.log( uniques[index].qty)
+          console.log( portfolio[i].bPrice)
+          console.log( portfolio[i].qty)
+          console.log("-----")
+          console.log(sum)
+          console.log( Number(uniques[index].qty) + Number(portfolio[i].qty))
+          console.log("-----")
+          uniques[index].qty = Number(uniques[index].qty) + Number(portfolio[i].qty);
+          uniques[index].bPrice = sum / uniques[index].qty;
+          if (portfolio[i].bDate < uniques[index].bDate) uniques[index].bDate = portfolio[i].bDate;
+        }
+      }
+      res.json(uniques);
     },
     
     getHistory: function(req, res) {
@@ -20,12 +43,6 @@
           return res.send(500, {error: err});
           return res.send("successfully saved")
       })
-      //User.findOneAndUpdate({_id: req.user._id}, req.user, {upsert: true},
-                 //function(err, doc){
-                   //console.log(err)
-                   //if (err) res.send(500, {error: err});
-                   //return res.send("successfully saved")
-                 //})
     },
    
     sell: function(req, res) {

@@ -18,6 +18,8 @@ var session      = require('express-session');
 var jwt = require('jsonwebtoken');
 
 var configDB = require('./config/database.js');
+var notifier = require('node-notifier');
+
 
 var allowCrossDomain = function(req, res, next) {
     //res.header("Access-Control-Allow-Origin", "*");
@@ -62,4 +64,6 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);
+notifier.notify({ title: "WebServer:", message : "server running" });
+
 });
