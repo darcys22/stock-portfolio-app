@@ -31,6 +31,8 @@ angular.module('myApp.portfolio', ['ngRoute'])
   $scope.portfolio = [];
   $scope.history = [];
   $scope.loading = true;
+
+  //Get Users Portfolio
   $scope.portfolio = StockFactory.getPortfolio().then(
     function (response) {
       $scope.portfolio = response;
@@ -51,8 +53,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
       })
 
 
-
-
+    //Error handling on get portfolio
     }, function (status) {
       $alert({
         content: status,
@@ -63,6 +64,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
     }
   );
  
+  // Searching for a stock
   var _timeout; 
   $scope.invalidStock = true
   $scope.searchStock = {}
@@ -89,6 +91,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
     //}
   };
   
+  //Buy a stock with the buy form
   $scope.submit = function() {
     console.log("yaya")
     if (!$scope.buy.bDate) {
@@ -103,11 +106,23 @@ angular.module('myApp.portfolio', ['ngRoute'])
     $scope.buy = {};
   };
 
+  //Modal Popup to sell stock
   var stockModal = $modal({scope: $scope, template: 'partials/modal.html', show: false});
 
   $scope.sell = function(stock) {
     $scope.sellStock = stock;
     stockModal.$promise.then(stockModal.show);
+  };
+
+  // Sell a stock with the sell form
+  $scope.submitSell = function() {
+    console.log("yaya")
+    if (!$scope.sellStock.sDate) {
+      $scope.sellStock.bDate = new Date;
+    }
+    $scope.sellResponse = StockFactory.sell({name: $scope.sellStock.name, qty: $scope.sellStock.qty, bPrice: $scope.sellStock.bPrice, bDate: $scope.sellStock.bDate, sPrice: $scope.sellStock.sPrice, sDate: $scope.sellStock.sDate})
+    $scope.history.unshift($scope.sellStock);
+    $scope.sellStock = {};
   };
 
   // History Show
@@ -126,12 +141,6 @@ angular.module('myApp.portfolio', ['ngRoute'])
     $scope.soldProfit += x;
   };
   
-
-
-  //Dummy Data because ajax was being annoying
-  //$scope.portfolio = {"owned":[{"_id":"56296c3410de11cefb90f5d2","qty":39,"name":"tif","bPrice":3281.94,"bDate":"2014-01-23"},{"_id":"56296c34ea15eaf10f92df3a","qty":26,"name":"Edwards","bPrice":1206.22,"bDate":"2014-12-03"},{"_id":"56296c34026714f38dafa1af","qty":22,"name":"rgdx","bPrice":2540.44,"bDate":"2014-08-30"},{"_id":"56296c348d2ce898d47cfc49","qty":34,"name":"figy","bPrice":3868.52,"bDate":"2014-06-22"},{"_id":"56296c342b4a8c4e52dff602","qty":26,"name":"1388.hk","bPrice":3828.78,"bDate":"2014-02-13"},{"_id":"56296c34793e84cae7c1a195","qty":27,"name":"apb","bPrice":3110.16,"bDate":"2014-03-26"}],"history":[{"_id":"56296c34c28a3abd315aca78","qty":22,"name":"APC","bPrice":2911.55,"bDate":"2015-10-20","sPrice":1483.17,"sDate":"2015-02-27"},{"_id":"56296c34aaa4faee3df9c2b7","qty":38,"name":"tik","bPrice":2481.64,"bDate":"2014-01-03","sPrice":2303.64,"sDate":"2014-12-18"},{"_id":"56296c34f139ec319f9a57a8","qty":25,"name":"ism.to","bPrice":1852.6,"bDate":"2015-02-22","sPrice":1250.81,"sDate":"2015-02-05"},{"_id":"56296c344965579628ee1077","qty":27,"name":"wvr.v","bPrice":2568.19,"bDate":"2014-03-16","sPrice":2517.54,"sDate":"2015-10-20"},{"_id":"56296c34336f66d11abdb16b","qty":21,"name":"qan.ax","bPrice":3899.37,"bDate":"2014-06-03","sPrice":3328.64,"sDate":"2014-01-20"},{"_id":"56296c340edb4fca4de38166","qty":20,"name":"goog","bPrice":1283.67,"bDate":"2014-06-12","sPrice":1376.21,"sDate":"2015-04-18"}]}
-
-
 }]);
 
 })();
