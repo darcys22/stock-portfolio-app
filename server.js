@@ -6,6 +6,7 @@ var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 9000;
 var mongoose = require('mongoose');
+var uriUtil = require('mongodb-uri');
 var passport = require('passport');
 var flash    = require('connect-flash');
 
@@ -29,7 +30,14 @@ var allowCrossDomain = function(req, res, next) {
 }
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
+
+mongoose.connect(uriUtil.formatMongoose(configDB.url), options); // connect to our database
+var conn = mongoose.connection;
+conn.on('error', console.error.bind(console, 'connection error:'));
+
+conn.once('open', function() {
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -54,3 +62,4 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);
+});
