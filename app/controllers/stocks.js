@@ -14,15 +14,6 @@
           uniques.push(portfolio[i])
         } else {
           sum = uniques[index].bPrice * uniques[index].qty + portfolio[i].bPrice * portfolio[i].qty;
-          console.log(index)
-          console.log( uniques[index].bPrice)
-          console.log( uniques[index].qty)
-          console.log( portfolio[i].bPrice)
-          console.log( portfolio[i].qty)
-          console.log("-----")
-          console.log(sum)
-          console.log( Number(uniques[index].qty) + Number(portfolio[i].qty))
-          console.log("-----")
           uniques[index].qty = Number(uniques[index].qty) + Number(portfolio[i].qty);
           uniques[index].bPrice = sum / uniques[index].qty;
           if (portfolio[i].bDate < uniques[index].bDate) uniques[index].bDate = portfolio[i].bDate;
