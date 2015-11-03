@@ -5,6 +5,7 @@
   function portfolioTrimmer(portfolio) {
     var uniques = [];
     var index, sum;
+      console.log("--------2");
     for (var i=0; i < portfolio.length; i++) {
       index = uniques.map(function(e) { return e.name; }).indexOf(portfolio[i].name); 
       if (index == -1) {
@@ -16,12 +17,14 @@
         if (portfolio[i].bDate < uniques[index].bDate) uniques[index].bDate = portfolio[i].bDate;
       }
     }
+          console.log("--------3");
     return uniques;          
   }
 
   module.exports = {
 
     getPortfolio: function(req, res) {
+      console.log("--------1");
       res.json( portfolioTrimmer(req.user.portfolio));
     },
     

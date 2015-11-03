@@ -145,9 +145,16 @@ angular.module('myApp.portfolio', ['ngRoute'])
   // History Show
   $scope.historyActive = false;
   $scope.historyLoad = false;
+  $scope.historySearch = false;
+  $scope.historyHover = function() {
+    if (!$scope.historySearch) {
+      $scope.getHistory();
+      $scope.historySearch = true;
+    }
+  }  
   $scope.historyButton = function() {
     $scope.historyActive = !$scope.historyActive;
-    if ($scope.historyActive) $scope.getHistory();
+    if ($scope.historyActive && !$scope.historySearch) $scope.historyHover();
   }  
   // Gets User History
   $scope.getHistory = function() {

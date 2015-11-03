@@ -98,11 +98,11 @@
 
     <div class="row">
     <div class="page-header text-center">
-      <h2 ng-class="{'active': historyActive}" ng-click="historyButton()">History</h2>
-      <a ng-hide="historyActive" ng-class="{'active': isActive}" ng-click="historyButton()">Click to Show</a>
+      <h2 ng-class="{'active': historyActive}" ng-click="historyButton()" ng-mouseover="historyHover()">History</h2>
+      <a ng-hide="historyActive" ng-class="{'active': isActive}" ng-click="historyButton()" ng-mouseover="historyHover()">Click to Show</a>
     </div>
     <div ng-show="historyLoad" class="text-center">
-      <span class="loader"><span class="loader-inner"></span></span>
+      <span class="loader" ng-cloak><span class="loader-inner"></span></span>
       <br><br>
     </div>
     <table ng-show="historyActive && !historyLoad" class="table">
