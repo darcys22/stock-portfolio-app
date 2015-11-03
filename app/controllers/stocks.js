@@ -23,7 +23,7 @@
     },
     
     getHistory: function(req, res) {
-      res.sendfile('./app/controllers/portfolio.json');
+      res.json(req.user.history);
     },
 
     buy: function(req, res) {

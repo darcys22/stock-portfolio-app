@@ -61,6 +61,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
       })
     }
   );
+
  
   // Searching for a stock
   var _timeout; 
@@ -120,13 +121,48 @@ angular.module('myApp.portfolio', ['ngRoute'])
     $scope.sellResponse = StockFactory.sell({name: $scope.sellStock.name, sellQty: $scope.sellStock.sellQty, sPrice: $scope.sellStock.sPrice, sDate: $scope.sellStock.sDate})
     $scope.sellStock = {};
     stockModal.hide();
+    $scope.sellResponse.then(
+      function (response) {
+        //$scope.portfolio = response.portfolio;
+        //$scope.history = response.history;
+      //Error handling on get history
+      }, function (status) {
+        $alert({
+          content: status,
+          animation: 'fadeZoomFadeDown',
+          type: 'material',
+          duration: 3
+        })
+      }
+    )
   };
 
   // History Show
   $scope.historyActive = false;
+  $scope.historyLoad = false;
   $scope.historyButton = function() {
     $scope.historyActive = !$scope.historyActive;
+    if ($scope.historyActive) $scope.getHistory();
   }  
+  // Gets User History
+  $scope.getHistory = function() {
+    $scope.historyLoad = true;
+    $scope.history = StockFactory.getHistory().then(
+      function (response) {
+        $scope.historyLoad = false;
+        $scope.history = response;
+      //Error handling on get history
+      }, function (status) {
+        $scope.historyLoad = false;
+        $alert({
+          content: status,
+          animation: 'fadeZoomFadeDown',
+          type: 'material',
+          duration: 3
+        })
+      }
+    );
+  };
 
   // Profit Calculations
   $scope.ownedProfit = 0;

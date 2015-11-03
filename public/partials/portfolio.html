@@ -101,7 +101,11 @@
       <h2 ng-class="{'active': historyActive}" ng-click="historyButton()">History</h2>
       <a ng-hide="historyActive" ng-class="{'active': isActive}" ng-click="historyButton()">Click to Show</a>
     </div>
-    <table ng-show="historyActive" class="table">
+    <div ng-show="historyLoad" class="text-center">
+      <span class="loader"><span class="loader-inner"></span></span>
+      <br><br>
+    </div>
+    <table ng-show="historyActive && !historyLoad</table>" class="table">
       <thead>
         <tr>
           <th>Stock</th>
