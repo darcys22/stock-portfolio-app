@@ -1,17 +1,20 @@
 <div class="container">
 
-    <div class="page-header text-center">
-      <h1><span class="fa fa-anchor"></span> Portfolio </h1>
+  <div class="page-header text-center">
+    <h1>
+    <span class="fa fa-university"> </span> 
+      Portfolio
+    </h1>
       </div>
 
 <form name="buy" class="form-inline" ng-submit="submit()" autocomplete="off">
   <div class="row">
-      <div class="form-group col-xs-2 col-sm-offset-3">
+      <div class="form-group col-xs-2 col-sm-offset-2">
           <label for="stock" class="sr-only"></label>
           <input id="Stock" class="form-control input-group-lg reg_name" type="text" name="Stock Name" ng-required="true" ng-model="buy.name" ng-class="{'has-error':invalidStock && buy.name}" ng-change="searchChanged(buy.name)" title="Stock" placeholder="Stock"/>
       </div>
 
-      <div class="form-group col-xs-1">
+      <div class="form-group col-xs-2">
           <label for="count" class="sr-only"></label>
           <input id="count" class="form-control input-group-lg reg_name" type="number" ng-required="true" ng-model="buy.qty" placeholder="qty"/>
       </div>
@@ -76,7 +79,7 @@
             <td>{{ x.qty }}</td>
             <td><a bs-tooltip data-type="info" data-title="Buy Date: {{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>
             <td ><a bs-tooltip data-type="info" data-title="Change: {{x.ChangeinPercent}}">{{ x.LastTradePriceOnly | currency}}</a></td>
-            <td ><a ng-class="{ red: itemTotal < 0, green: itemTotal > 1 }" bs-tooltip data-type="info" data-title="Individual Share Profit: {{(x.individualProfit)| currency}}">{{x.itemTotal | currency}}</a></td>
+            <td ><a ng-class="{ red: x.itemTotal < 0, green: x.itemTotal > 1 }" bs-tooltip data-type="info" data-title="Individual Share Profit: {{(x.individualProfit)| currency}}">{{x.itemTotal | currency}}</a></td>
             <td> <button class="btn btn-danger" type="button" id="single-button" ng-click="sell(x)"><i class="fa fa-minus"></i></button> </td>
           </tr>
         </tbody>

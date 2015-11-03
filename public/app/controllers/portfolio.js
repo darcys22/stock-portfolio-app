@@ -43,8 +43,6 @@ angular.module('myApp.portfolio', ['ngRoute'])
       $scope.ownedStock.then(function (stock) {
         arrayObjMerger($scope.portfolio, stock.query.results.quote) 
         for (var i=0; i < $scope.portfolio.length; i++) {
-          console.log($scope.portfolio[i].LastTradePriceOnly);
-          console.log($scope.portfolio[i].bPrice);
           $scope.portfolio[i].individualProfit = +$scope.portfolio[i].LastTradePriceOnly-$scope.portfolio[i].bPrice;
           $scope.portfolio[i].itemTotal = +$scope.portfolio[i].individualProfit * $scope.portfolio[i].qty;
           $scope.ownedProfitAdd($scope.portfolio[i].itemTotal);
@@ -93,7 +91,6 @@ angular.module('myApp.portfolio', ['ngRoute'])
   
   //Buy a stock with the buy form
   $scope.submit = function() {
-    console.log("yaya")
     if (!$scope.buy.bDate) {
       $scope.buy.bDate = new Date;
     }
@@ -120,9 +117,9 @@ angular.module('myApp.portfolio', ['ngRoute'])
     if (!$scope.sellStock.sDate) {
       $scope.sellStock.bDate = new Date;
     }
-    $scope.sellResponse = StockFactory.sell({name: $scope.sellStock.name, qty: $scope.sellStock.qty, bPrice: $scope.sellStock.bPrice, bDate: $scope.sellStock.bDate, sPrice: $scope.sellStock.sPrice, sDate: $scope.sellStock.sDate})
-    $scope.history.unshift($scope.sellStock);
+    $scope.sellResponse = StockFactory.sell({name: $scope.sellStock.name, sellQty: $scope.sellStock.sellQty, sPrice: $scope.sellStock.sPrice, sDate: $scope.sellStock.sDate})
     $scope.sellStock = {};
+    stockModal.hide();
   };
 
   // History Show

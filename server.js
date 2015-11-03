@@ -32,25 +32,33 @@ var allowCrossDomain = function(req, res, next) {
 }
 
 // configuration ===============================================================
-var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+var options = { server: { auto_reconnect:true, socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
 mongoose.connect(uriUtil.formatMongoose(configDB.url), options); // connect to our database
 var conn = mongoose.connection;
-conn.on('error', console.error.bind(console, 'connection error:'));
+
+conn.on('error', function(error) {
+    console.error('Error in MongoDb connection: ' + error);
+    mongoose.disconnect();
+  });
+conn.on('disconnected', function() {
+    console.log('disconnected');
+    mongoose.connect(uriUtil.formatMongoose(configDB.url), options); // connect to our database
+  });
 
 conn.once('open', function() {
 
 require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
+app.use(express.static(__dirname + '/dist'));
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(allowCrossDomain);
 
-app.use(express.static(__dirname + '/dist'));
 
 // required for passport
 app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret

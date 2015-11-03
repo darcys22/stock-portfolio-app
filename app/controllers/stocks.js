@@ -28,7 +28,6 @@
 
     buy: function(req, res) {
       req.user.portfolio.push(req.body)
-      console.log(req.user);
       req.user.save(function (err, savedPreference) {
         if (err) 
           return res.send(500, {error: err});
@@ -37,31 +36,43 @@
     },
    
     sell: function(req, res) {
-      console.log(req.body);
-      res.json({lel: 'SALD'});
+      var sellAmt = req.body.sellQty;
+      var stock = req.user.portfolio
+        .filter(function(e) { return e.name == req.body.name; })
+        .sort(function(a,b){ return new Date(a.bDate) - new Date(b.bDate) }); 
+      stockLoop:
+        for (var i = 0; sellAmt > 0; i++) {
+          if (i >= stock.length) {
+            res.send({oversold: sellAmt});
+            console.log("Getting up in my grill")
+            break stockLoop;
+          }
+          var iterationQty = stock[i].qty
+          if (stock[i].qty > sellAmt) {
+            var edit = req.user.portfolio.id(stock[i]._id)
+            req.user.portfolio.pull(edit)
+            edit.qty -= sellAmt;
+            req.user.portfolio.push(edit)
+            iterationQty = sellAmt
+          } else {
+            req.user.portfolio.pull(stock[i]);
+          }
+          req.user.history.push( {
+            name: stock[i].name, 
+            qty: iterationQty, 
+            bDate: stock[i].bDate, 
+            bPrice: stock[i].bPrice, 
+            sDate: req.body.sDate, 
+            sPrice: req.body.sPrice
+          });
+          sellAmt -= stock[i].qty;
+        }
+      req.user.save(function (err, savedPreference) {
+        if (err) 
+          return res.send(500, {error: err});
+          return res.send({saved: true})
+      })
     }
-
-    //topBooks: function(req, res) {
-      //Book
-      //.find({rank : {$gt : 0}})
-      //.sort('rank')
-      //.limit(100)
-      //.exec(function(err, books) {
-        //res.send(books);
-      //});
-    //},
-
-    //searchBooks: function(req, res) {
-      //var Search = require('./Search.js');
-      //Search(req.body, function(error, data) {
-        //if (error) {
-          //console.debug('Search: ' + err);
-          //res.status(400).send(error);
-        //} else {
-          //res.json(JSON.stringify(data));
-        //};
-      //});
-    //}
   }
 
 }());

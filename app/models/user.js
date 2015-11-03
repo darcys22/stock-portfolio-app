@@ -4,32 +4,22 @@ var bcrypt   = require('bcrypt-nodejs');
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
-    email        : {
-                    type: String,
-                    required: true 
-                    },
-    password     : {
-                    type: String,
-                    required: true 
-                    },
+    email        : { type: String, required: true },
+    password     : { type: String, required: true },
     portfolio: [{
-        name: {
-                    type: String,
-                    required: true //this 'required' option only implies that if creating an object in the features array, the object better have a 'name' attribute in it.  Does not mean that the 'features' array is required.
-                },
-        qty: {
-                    type: String,
-                    required: true //this 'required' option only implies that if creating an object in the features array, the object better have a 'name' attribute in it.  Does not mean that the 'features' array is required.
-                },
-        bPrice: {
-                    type: String,
-                    required: true //this 'required' option only implies that if creating an object in the features array, the object better have a 'name' attribute in it.  Does not mean that the 'features' array is required.
-                },
-        bDate: {
-                    type: Date,
-                    required: true //this 'required' option only implies that if creating an object in the features array, the object better have a 'name' attribute in it.  Does not mean that the 'features' array is required.
-                },
-    }]
+        name: { type: String, required: true },
+        qty: { type: String, required: true },
+        bPrice: { type: String, required: true },
+        bDate: { type: Date, required: true },
+    }],
+    history: [{
+        name: { type: String, required: true },
+        qty: { type: String, required: true },
+        bPrice: { type: String, required: true },
+        bDate: { type: Date, required: true },
+        sPrice: { type: String, required: true },
+        sDate: { type: Date, required: true },
+    }],
 
 });
 
