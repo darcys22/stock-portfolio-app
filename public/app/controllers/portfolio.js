@@ -36,19 +36,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
   $scope.portfolio = StockFactory.getPortfolio().then(
     function (response) {
       $scope.portfolio = response;
-
-    //Yahoo query builder
-      var qts = $scope.portfolio.map(function(x) { return x.name;}).join(', ');
-      $scope.ownedStock = StockFactory.getYQL( yqlBuilder('"' + qts + '"'));
-      $scope.ownedStock.then(function (stock) {
-        arrayObjMerger($scope.portfolio, stock.query.results.quote) 
-        for (var i=0; i < $scope.portfolio.length; i++) {
-          $scope.portfolio[i].individualProfit = +$scope.portfolio[i].LastTradePriceOnly-$scope.portfolio[i].bPrice;
-          $scope.portfolio[i].itemTotal = +$scope.portfolio[i].individualProfit * $scope.portfolio[i].qty;
-          $scope.ownedProfitAdd($scope.portfolio[i].itemTotal);
-        }
-        $scope.loading = false;
-      })
+      $scope.portfolioBuilder();
 
 
     //Error handling on get portfolio
@@ -89,6 +77,21 @@ angular.module('myApp.portfolio', ['ngRoute'])
       ////$scope.searchResults = false;
     //}
   };
+
+  //Yahoo query builder
+  $scope.portfolioBuilder = function() {
+    var qts = $scope.portfolio.map(function(x) { return x.name;}).join(', ');
+    $scope.ownedStock = StockFactory.getYQL( yqlBuilder('"' + qts + '"'));
+    $scope.ownedStock.then(function (stock) {
+      arrayObjMerger($scope.portfolio, stock.query.results.quote) 
+      for (var i=0; i < $scope.portfolio.length; i++) {
+        $scope.portfolio[i].individualProfit = +$scope.portfolio[i].LastTradePriceOnly-$scope.portfolio[i].bPrice;
+        $scope.portfolio[i].itemTotal = +$scope.portfolio[i].individualProfit * $scope.portfolio[i].qty;
+        $scope.ownedProfitAdd($scope.portfolio[i].itemTotal);
+      }
+      $scope.loading = false;
+    })
+  };
   
   //Buy a stock with the buy form
   $scope.submit = function() {
@@ -123,8 +126,10 @@ angular.module('myApp.portfolio', ['ngRoute'])
     stockModal.hide();
     $scope.sellResponse.then(
       function (response) {
-        //$scope.portfolio = response.portfolio;
-        //$scope.history = response.history;
+        $scope.loading = true;
+        $scope.portfolio = response.portfolio;
+        $scope.portfolioBuilder();
+        $scope.history = response.history;
       //Error handling on get history
       }, function (status) {
         $alert({
