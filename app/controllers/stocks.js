@@ -32,6 +32,25 @@
       res.json(req.user.history);
     },
 
+    del: function(req, res) {
+      //TODO
+      req.user.portfolio.pull(req.body.id)
+      req.user.save(function (err, savedPreference) {
+        if (err) 
+          return res.send(500, {error: err});
+          return res.send({portfolio: portfolioTrimmer(savedPreference.portfolio)})
+      })
+    },
+    delHistory: function(req, res) {
+      //TODO
+      req.user.history.pull(req.body.id)
+      req.user.save(function (err, savedPreference) {
+        if (err) 
+          return res.send(500, {error: err});
+          return res.send({history: savedPreference.history})
+      })
+    },
+
     buy: function(req, res) {
       req.user.portfolio.push(req.body)
       req.user.save(function (err, savedPreference) {

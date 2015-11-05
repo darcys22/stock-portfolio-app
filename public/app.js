@@ -50,10 +50,10 @@ var myApp = angular.module('myApp', [
 
   // Auth config
   $authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
-  $authProvider.loginOnSignup = true;
+  $authProvider.loginOnSignup = false;
   $authProvider.loginRedirect = '/portfolio';
   $authProvider.logoutRedirect = '/landing';
-  $authProvider.signupRedirect = '/portfolio';
+  $authProvider.signupRedirect = '/emailConfirm';
   $authProvider.loginUrl = '/api/signIn';
   $authProvider.signupUrl = '/api/signUp';
   $authProvider.tokenName = 'token';

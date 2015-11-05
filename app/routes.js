@@ -14,9 +14,7 @@ module.exports = function(app, passport) {
     app.post('/api/sell', passport.authenticate('jwt', { session: false }), stocks.sell);
 
     app.get('/api/user', passport.authenticate('jwt', { session: false }), function(req, res) {
-      User.findOne({}, function(err, users) {
-        res.json(users);
-      });
+      res.json({name: req.user.name, email: req.user.email});
     });
 
     //// LOGOUT ==============================
@@ -50,7 +48,30 @@ module.exports = function(app, passport) {
     // SIGNUP =================================
     // process the signup form
     app.post('/api/signUp', passport.authenticate('local-signup', { session : false}), function (req, res) {
-      res.json({success : true})
+      var token = jwt.sign({'sub': user._id}, configDB.secret, {
+        expiresIn: 1440 * 60
+      });
+      console.log("/password/" + token);
+      res.json("Confirmation Email Sent");
+    });
+
+    app.post('/api/forgot', function(req, res) {
+      var user = User.findOne({email: req.body.email}) 
+      if (!user) {
+        res.json({ success: false, message: 'Authentication failed.' }); 
+      }
+      var token = jwt.sign({'sub': user._id}, configDB.secret, {
+        expiresIn:  30 * 60
+      });
+      console.log("/password/" + token);
+      res.json("Paassword Reset Email Sent");
+    });
+
+    app.post('/api/password', passport.authenticate('jwt', { session: false }), function(req, res) {
+      //If there is a token and no password on account make password new password
+      //if the old pass matches the password make new pass 
+      //auth token {auth_token: x}
+      res.json({oldPw: req.body.oldPass, newPw: req.body.newPass});
     });
 
 

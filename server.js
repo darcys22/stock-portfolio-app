@@ -32,9 +32,12 @@ var allowCrossDomain = function(req, res, next) {
 }
 
 // configuration ===============================================================
-var options = { server: { auto_reconnect:true, socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
-                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
-
+//var options = { server: { auto_reconnect:true, socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } },
+                db:     { numberOfRetries: 10, retryMiliSeconds: 1000 }
+};
+mongoose.set('debug', true)
 mongoose.connect(uriUtil.formatMongoose(configDB.url), options); // connect to our database
 var conn = mongoose.connection;
 

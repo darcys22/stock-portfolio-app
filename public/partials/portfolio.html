@@ -101,7 +101,7 @@
       <h2 ng-class="{'active': historyActive}" ng-click="historyButton()" ng-mouseover="historyHover()">History</h2>
       <a ng-hide="historyActive" ng-class="{'active': isActive}" ng-click="historyButton()" ng-mouseover="historyHover()">Click to Show</a>
     </div>
-    <div ng-show="historyLoad" class="text-center">
+    <div ng-show="historyLoad && historyActive" class="text-center">
       <span class="loader" ng-cloak><span class="loader-inner"></span></span>
       <br><br>
     </div>
