@@ -17,11 +17,6 @@ module.exports = function(app, passport) {
       res.json({name: req.user.name, email: req.user.email});
     });
 
-    //// LOGOUT ==============================
-    //app.get('/logout', function(req, res) {
-        //req.logout();
-        //res.redirect('/');
-    //});
 
 // =============================================================================
 // AUTHENTICATE ================================================================
@@ -71,7 +66,9 @@ module.exports = function(app, passport) {
       //If there is a token and no password on account make password new password
       //if the old pass matches the password make new pass 
       //auth token {auth_token: x}
-      res.json({oldPw: req.body.oldPass, newPw: req.body.newPass});
+      if(req.body.auth_token) console.log('token');
+      console.log("Authenticated password");
+      res.json({password: req.body.password});
     });
 
 

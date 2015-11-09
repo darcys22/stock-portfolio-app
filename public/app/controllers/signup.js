@@ -20,14 +20,14 @@ angular.module('myApp.signup', ['ngRoute'])
     }).then(function() {
       $alert({
         content: 'You have successfully signed up',
-        animation: 'fadeZoomFadeDown',
+        animation:"am-fade-and-slide-top",
         type: 'material',
         duration: 3
       });
     }).catch(function(response) {
       $alert({
         content: response.data.message,
-        animation: 'fadeZoomFadeDown',
+        animation:"am-fade-and-slide-top",
         type: 'material',
         duration: 3
       });

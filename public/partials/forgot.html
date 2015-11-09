@@ -1,0 +1,26 @@
+<div class="container">
+<div class="col-sm-6 col-sm-offset-3">
+
+  <h1><span class="fa fa-sign-in"></span> Reset Email?</h1>
+  <br>
+
+    <!-- LOGIN FORM -->
+    <form name="form" id="sign-in-form" ng-submit="submit()" autocomplete="off">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" name="email" ng-model="email">
+        </div>
+
+        <button ng-disabled="form.$invalid" type="submit" class="btn btn-warning btn-lg">Reset</button>
+    </form>
+
+    <hr>
+    <div class="text-center">
+    <p>You will be sent an email with instructions on resetting your password</p>
+  </div>
+  <br>
+
+
+
+</div>
+</div>

@@ -14,9 +14,9 @@
     "public/libs"
   ],
   "dependencies": {
-    "angular-animate": "",
     "angular-bootstrap": "~0.13.4",
     "angular-money-directive": "~1.2.0",
+    "angular-motion": "~0.4.3",
     "angular-route": "~1.4.3",
     "angular-sanitize": "~1.4.3",
     "angular-strap": "~2.3.3",

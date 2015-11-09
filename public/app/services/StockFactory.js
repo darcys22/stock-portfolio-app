@@ -23,7 +23,8 @@ angular.module('myApp')
     getHistory: deferredbullshit(function() { return $http.get('/api/history') }),
     buy: deferredbullshit(function(buyObject) { return $http.post('/api/buy', buyObject)}),
     sell: deferredbullshit(function(sellObject) { return $http.post('/api/sell', sellObject) }),
-    getYQL: deferredbullshit(function(yqlurl) { return $http({method: 'JSONP', url: (yqlurl + '&callback=JSON_CALLBACK') }) })
+    getYQL: deferredbullshit(function(yqlurl) { return $http({method: 'JSONP', url: (yqlurl + '&callback=JSON_CALLBACK') }) }),
+    password: deferredbullshit(function(passObject) { return $http.post('/api/password', passObject)}),
 
   };
 

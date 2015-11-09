@@ -3,6 +3,7 @@
 var myApp = angular.module('myApp', [
   'ngRoute',
   'ngSanitize',
+  'ngAnimate',
   'satellizer',
   'mgcrea.ngStrap',
   'fiestah.money',
@@ -90,14 +91,15 @@ var myApp = angular.module('myApp', [
     $location.path('/login');
     $alert({
       content: 'You have successfully signed out',
-      animation: 'fadeZoomFadeDown',
+      animation:"am-fade-and-slide-top",
       type: 'material',
       duration: 3
     });
   }
 
-  var publicPaths = ['/login','/signup','/landing','/pricing','/features','/'];
-  var angularPath = $location.path();
+  var publicPaths = ['login','signup', 'password', ,'forgot', 'landing','pricing','features',''];
+  var angularPath = $location.path().split('/')[1];
+  console.log(angularPath);
   // register listener to watch route changes
   $rootScope.$on( "$locationChangeStart", function(event, next, current) {
     if (!$auth.isAuthenticated()) {

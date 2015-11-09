@@ -43,7 +43,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
     }, function (status) {
       $alert({
         content: status,
-        animation: 'fadeZoomFadeDown',
+        animation:"am-fade-and-slide-top",
         type: 'material',
         duration: 3
       })
@@ -108,7 +108,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
   };
 
   //Modal Popup to sell stock
-  var stockModal = $modal({scope: $scope, template: 'partials/modal.html', show: false});
+  var stockModal = $modal({scope: $scope, templateUrl: 'partials/modal.html', show: false});
 
   $scope.sell = function(stock) {
     $scope.sellStock = stock;
@@ -134,7 +134,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
       }, function (status) {
         $alert({
           content: status,
-          animation: 'fadeZoomFadeDown',
+          animation:"am-fade-and-slide-top",
           type: 'material',
           duration: 3
         })
@@ -168,7 +168,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
         $scope.historyLoad = false;
         $alert({
           content: status,
-          animation: 'fadeZoomFadeDown',
+          animation:"am-fade-and-slide-top",
           type: 'material',
           duration: 3
         })

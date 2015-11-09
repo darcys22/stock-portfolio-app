@@ -19,7 +19,7 @@ angular.module('myApp.login', ['ngRoute'])
           $location.path('/settings');
           $alert({
             content: 'You have successfully signed in',
-            animation: 'fadeZoomFadeDown',
+            animation:"am-fade-and-slide-top",
             type: 'material',
             duration: 3
           });
@@ -28,7 +28,7 @@ angular.module('myApp.login', ['ngRoute'])
           console.log(response);
           $alert({
             content: response.data.message,
-            animation: 'fadeZoomFadeDown',
+            animation:"am-fade-and-slide-top",
             type: 'material',
             duration: 3
           });
