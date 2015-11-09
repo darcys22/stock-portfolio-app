@@ -11,6 +11,7 @@ var myApp = angular.module('myApp', [
   'myApp.signup',
   'myApp.portfolio',
   'myApp.settings',
+  'myApp.password',
   'myApp.landing'
 ])
 
