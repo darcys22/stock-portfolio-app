@@ -10,12 +10,35 @@
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-6">
             <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
+                <h3><span class="fa fa-user"></span> User Info</h3>
 
                     <p>
+                      <strong>Company Name</strong>: {{user.name}}<br>
                       <strong>Email</strong>: {{user.email}}<br>
-                      <strong>PW</strong>: {{user.password}}<br>
                     </p>
+
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Password Change</h3>
+                
+                <form name="form" id="sign-in-form" ng-submit="submit()" autocomplete="off">
+                    <div class="form-group">
+                        <label>Old Password</label>
+                        <input type="password" class="form-control" ng-required="true" name="password" ng-model="oldPassword">
+                    </div>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" class="form-control" ng-required="true" name="password" ng-model="password">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" ng-required="true" name="passwordC" ng-model="passwordConfirm">
+                    </div>
+
+                    <button ng-disabled="form.$invalid" type="submit" class="btn btn-warning btn-lg">Change</button>
+                </form>
 
             </div>
         </div>

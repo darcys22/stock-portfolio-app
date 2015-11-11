@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-angular.module('myApp.password', ['ngRoute'])
+angular.module('myApp.forgot', ['ngRoute'])
 
 // Declared route
 .config(['$routeProvider', function($routeProvider) {
@@ -16,7 +16,7 @@ angular.module('myApp.password', ['ngRoute'])
 
   $scope.submit = function() {
     if ($scope.email) {
-      StockFactory.password({password: $scope.email})
+      StockFactory.forgot({email: $scope.email})
     } else {
        $alert({content: 'Please enter an email address', duration: 3, animation:"am-fade-and-slide-top", placement: 'top-right', type: 'danger', show: true});
     }

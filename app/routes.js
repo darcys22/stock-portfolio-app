@@ -51,15 +51,17 @@ module.exports = function(app, passport) {
     });
 
     app.post('/api/forgot', function(req, res) {
-      var user = User.findOne({email: req.body.email}) 
-      if (!user) {
-        res.json({ success: false, message: 'Authentication failed.' }); 
-      }
-      var token = jwt.sign({'sub': user._id}, configDB.secret, {
-        expiresIn:  30 * 60
+      User.findOne({email: req.body.email}, function (err, myDocument) {
+        var user = myDocument;
+        if (!user) {
+          res.json({ success: false, message: 'Authentication failed.' }); 
+        }
+        var token = jwt.sign({'sub': user._id}, configDB.secret, {
+          expiresIn:  30 * 60
+        });
+        console.log("http://localhost:9000/password/" + token);
+        res.json("Paassword Reset Email Sent");
       });
-      console.log("/password/" + token);
-      res.json("Paassword Reset Email Sent");
     });
 
     app.post('/api/password', passport.authenticate('jwt', { session: false }), function(req, res) {

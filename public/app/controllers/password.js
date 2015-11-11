@@ -13,7 +13,7 @@ angular.module('myApp.password', ['ngRoute'])
 
 .controller('PasswordController', ['$scope', '$routeParams', '$alert', 'StockFactory', function($scope, $routeParams, $alert, StockFactory) {
 
-  $scope.token = $routeParams.passwordToken
+  $scope.token = $routeParams.passwordToken;
 
   $scope.submit = function() {
     if ($scope.password == $scope.passwordConfirm) {
