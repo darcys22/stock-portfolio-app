@@ -16,14 +16,16 @@ angular.module('myApp.signup', ['ngRoute'])
   $scope.submit = function() {
     $auth.signup({
       email: $scope.email,
-      password: $scope.password
+      name: $scope.name
     }).then(function() {
       $alert({
-        content: 'You have successfully signed up',
+        content: 'Thank You for signing up! A Confirmation email has been sent to ' + $scope.email + ', please follow the instructions contained in the email to complete registration',
         animation:"am-fade-and-slide-top",
         type: 'material',
-        duration: 3
+        duration: 7
       });
+      $scope.email = "";
+      $scope.name = "";
     }).catch(function(response) {
       $alert({
         content: response.data.message,

@@ -56,7 +56,6 @@ var myApp = angular.module('myApp', [
   $authProvider.loginOnSignup = false;
   $authProvider.loginRedirect = '/portfolio';
   $authProvider.logoutRedirect = '/landing';
-  $authProvider.signupRedirect = '/emailConfirm';
   $authProvider.loginUrl = '/api/signIn';
   $authProvider.signupUrl = '/api/signUp';
   $authProvider.tokenName = 'token';

@@ -36,7 +36,12 @@ angular.module('myApp.portfolio', ['ngRoute'])
   $scope.portfolio = StockFactory.getPortfolio().then(
     function (response) {
       $scope.portfolio = response;
-      $scope.portfolioBuilder();
+      if (typeof $scope.portfolio !== 'undefined' && $scope.portfolio.length > 0) {
+        $scope.portfolioBuilder();
+      } else {
+        $scope.portfolioEmpty = true;
+      }
+      $scope.loading = false;
 
 
     //Error handling on get portfolio
@@ -103,6 +108,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
     $scope.buy.individualProfit = +$scope.buy.LastTradePriceOnly-$scope.buy.bPrice;
     $scope.buy.itemTotal = +$scope.buy.individualProfit * $scope.buy.qty;
     $scope.ownedProfitAdd($scope.buy.itemTotal);
+    $scope.portfolioEmpty = false;
     $scope.portfolio.unshift($scope.buy);
     $scope.buy = {};
   };

@@ -43,10 +43,10 @@ module.exports = function(app, passport) {
     // SIGNUP =================================
     // process the signup form
     app.post('/api/signUp', passport.authenticate('local-signup', { session : false}), function (req, res) {
-      var token = jwt.sign({'sub': user._id}, configDB.secret, {
+      var token = jwt.sign({'sub': req.user._id}, configDB.secret, {
         expiresIn: 1440 * 60
       });
-      console.log("/password/" + token);
+      console.log("http://localhost:9000/password/" + token);
       res.json("Confirmation Email Sent");
     });
 
@@ -60,7 +60,7 @@ module.exports = function(app, passport) {
           expiresIn:  30 * 60
         });
         console.log("http://localhost:9000/password/" + token);
-        res.json("Paassword Reset Email Sent");
+        res.json("Password Reset Email Sent");
       });
     });
 
@@ -73,11 +73,15 @@ module.exports = function(app, passport) {
         req.user.save(function(err) {
           if (err) return res.json(err);
           console.log("Changed Password");
-          return res.json("Password Changed");
+          var token = jwt.sign({'sub': req.user._id}, configDB.secret, {
+            expiresIn: 1440 * 60
+          });
+
+          res.json({token: token});
         });
 
       } else {
-          return res.json("Could not change password");
+          res.json({ success: false, message: 'Old Password is incorrect' }); 
       }
     });
 
@@ -95,9 +99,9 @@ module.exports = function(app, passport) {
 };
 
 // route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
+//function isLoggedIn(req, res, next) {
+    //if (req.isAuthenticated())
+        //return next();
 
-    res.redirect('/');
-}
+    //res.redirect('/');
+//}

@@ -73,7 +73,10 @@
           <th></th>
         </tr>
       </thead>
-        <tbody>
+      <tbody>
+        <tr ng-if="portfolioEmpty">
+          <td>You currently have no stocks</td>
+        </tr>
           <tr ng-repeat="x in portfolio">
             <td>{{ x.Name }}</td>
             <td>{{ x.qty }}</td>
