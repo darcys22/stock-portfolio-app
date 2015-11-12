@@ -68,9 +68,17 @@ module.exports = function(app, passport) {
       //If there is a token and no password on account make password new password
       //if the old pass matches the password make new pass 
       //auth token {auth_token: x}
-      if(req.body.auth_token) console.log('token');
-      console.log("Authenticated password");
-      res.json({password: req.body.password});
+      if(req.body.auth_token || (req.user.validPassword(req.body.oldPassword))) {
+        req.user.password = req.user.generateHash(req.body.password);
+        req.user.save(function(err) {
+          if (err) return res.json(err);
+          console.log("Changed Password");
+          return res.json("Password Changed");
+        });
+
+      } else {
+          return res.json("Could not change password");
+      }
     });
 
 
