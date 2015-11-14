@@ -5,7 +5,6 @@
   function portfolioTrimmer(portfolio) {
     var uniques = [];
     var index, sum;
-      console.log("--------2");
     for (var i=0; i < portfolio.length; i++) {
       index = uniques.map(function(e) { return e.name; }).indexOf(portfolio[i].name); 
       if (index == -1) {
@@ -17,14 +16,12 @@
         if (portfolio[i].bDate < uniques[index].bDate) uniques[index].bDate = portfolio[i].bDate;
       }
     }
-          console.log("--------3");
     return uniques;          
   }
 
   module.exports = {
 
     getPortfolio: function(req, res) {
-      console.log("--------1");
       res.json( portfolioTrimmer(req.user.portfolio));
     },
     
@@ -32,18 +29,16 @@
       res.json(req.user.history);
     },
 
-    del: function(req, res) {
-      //TODO
-      req.user.portfolio.pull(req.body.id)
+    deletePortfolio: function(req, res) {
+      req.user.portfolio.pull(req.params.id)
       req.user.save(function (err, savedPreference) {
         if (err) 
           return res.send(500, {error: err});
           return res.send({portfolio: portfolioTrimmer(savedPreference.portfolio)})
       })
     },
-    delHistory: function(req, res) {
-      //TODO
-      req.user.history.pull(req.body.id)
+    deleteHistory: function(req, res) {
+      req.user.history.pull(req.params.id)
       req.user.save(function (err, savedPreference) {
         if (err) 
           return res.send(500, {error: err});

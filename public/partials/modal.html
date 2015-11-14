@@ -2,18 +2,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
         <form name="sell" class="form-inline" ng-submit="submitSell()" autocomplete="off">
-      <!--<div class="modal-header" ng-show="title">-->
       <div class="modal-header">
         <button type="button" class="close" ng-click="$hide()">&times;</button>
-        <!--<h4 class="modal-title" ng-bind-html="title"></h4>-->
         <h4 class="modal-title">Sell Shares</h4>
       </div>
-      <!--<div class="modal-body" ng-show="content">-->
       <div class="modal-body">
 
         <h4>You have {{sellStock.qty}} shares of {{sellStock.Name}}</h4>
         <h4>--- Currently Valued at {{sellStock.LastTradePriceOnly | currency }} a share</h4>
-        <!--<p ng-bind-html="content"></p>-->
         <br>
         <h4>How many would you like to sell?</h4>
         <br>
@@ -43,11 +39,13 @@
           data-date-format="dd MMM yyyy"
           data-autoclose="true"
           bs-datepicker>
+          </input>
       </div>
 
 
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-danger" ng-click="$hide()">Delete</button>
         <button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
         <button type="submit" class="btn btn-primary">Sell</button>
       </div>
