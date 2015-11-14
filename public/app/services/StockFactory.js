@@ -26,6 +26,7 @@ angular.module('myApp')
     getYQL: deferredbullshit(function(yqlurl) { return $http({method: 'JSONP', url: (yqlurl + '&callback=JSON_CALLBACK') }) }),
     password: deferredbullshit(function(passObject) { return $http.post('/api/password', passObject)}),
     forgot: deferredbullshit(function(passObject) { return $http.post('/api/forgot', passObject)}),
+    user: deferredbullshit(function(passObject) { return $http.post('/api/user', passObject)}),
 
   };
 

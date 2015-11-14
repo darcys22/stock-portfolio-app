@@ -12,6 +12,15 @@ angular.module('myApp.settings', ['ngRoute'])
 }])
 
 .controller('SettingsController', ['$scope', '$alert', 'StockFactory', function($scope, $alert, StockFactory) {
+  $scope.nameEditorEnabled = false;
+  $scope.submitNameChange = function() {
+    if ($scope.title.trim()) {
+      StockFactory.user({name: $scope.title})
+      $scope.user.name = $scope.title;
+      $scope.title = "";
+      $scope.nameEditorEnabled = false;
+    } 
+  };
 
   $scope.submit = function() {
     if ($scope.password == $scope.passwordConfirm) {

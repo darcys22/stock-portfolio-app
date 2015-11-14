@@ -13,7 +13,22 @@
                 <h3><span class="fa fa-user"></span> User Info</h3>
 
                     <p>
-                      <strong>Company Name</strong>: {{user.name}}<br>
+                      <strong>Company Name</strong>: 
+                      <span ng-hide="nameEditorEnabled">
+                        {{user.name}}
+                        <a href="#" ng-click="nameEditorEnabled=!nameEditorEnabled">Edit Name</a>
+                      </span>
+                      <div id="nameChange" ng-show="nameEditorEnabled">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Change Name" ng-model="title">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="submitNameChange()" type="button">
+                              <span class="fa fa-send"></span>
+                            </button>
+                          </span>
+                        </div><!-- /input-group -->
+                        <br>
+                      </div>
                       <strong>Email</strong>: {{user.email}}<br>
                     </p>
 

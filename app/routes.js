@@ -1,8 +1,8 @@
-var User = require('./models/user')
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var configDB = require('../config/database.js');
 
 var stocks = require('./controllers/stocks.js');
+var users = require('./controllers/users.js');
 
 module.exports = function(app, passport) {
 
@@ -13,9 +13,8 @@ module.exports = function(app, passport) {
     app.post('/api/buy', passport.authenticate('jwt', { session: false }), stocks.buy);
     app.post('/api/sell', passport.authenticate('jwt', { session: false }), stocks.sell);
 
-    app.get('/api/user', passport.authenticate('jwt', { session: false }), function(req, res) {
-      res.json({name: req.user.name, email: req.user.email});
-    });
+    app.get('/api/user', passport.authenticate('jwt', { session: false }), users.getUser);
+    app.post('/api/user', passport.authenticate('jwt', { session: false }), users.changeUser);
 
 
 // =============================================================================
@@ -50,40 +49,10 @@ module.exports = function(app, passport) {
       res.json("Confirmation Email Sent");
     });
 
-    app.post('/api/forgot', function(req, res) {
-      User.findOne({email: req.body.email}, function (err, myDocument) {
-        var user = myDocument;
-        if (!user) {
-          res.json({ success: false, message: 'Authentication failed.' }); 
-        }
-        var token = jwt.sign({'sub': user._id}, configDB.secret, {
-          expiresIn:  30 * 60
-        });
-        console.log("http://localhost:9000/password/" + token);
-        res.json("Password Reset Email Sent");
-      });
-    });
-
-    app.post('/api/password', passport.authenticate('jwt', { session: false }), function(req, res) {
-      //If there is a token and no password on account make password new password
-      //if the old pass matches the password make new pass 
-      //auth token {auth_token: x}
-      if(req.body.auth_token || (req.user.validPassword(req.body.oldPassword))) {
-        req.user.password = req.user.generateHash(req.body.password);
-        req.user.save(function(err) {
-          if (err) return res.json(err);
-          console.log("Changed Password");
-          var token = jwt.sign({'sub': req.user._id}, configDB.secret, {
-            expiresIn: 1440 * 60
-          });
-
-          res.json({token: token});
-        });
-
-      } else {
-          res.json({ success: false, message: 'Old Password is incorrect' }); 
-      }
-    });
+    // Password Recovery =================================
+    // process the password changes
+    app.post('/api/forgot', users.forgot);
+    app.post('/api/password', passport.authenticate('jwt', { session: false }), users.changePass);
 
 
 // =============================================================================
@@ -98,10 +67,3 @@ module.exports = function(app, passport) {
 
 };
 
-// route middleware to ensure user is logged in
-//function isLoggedIn(req, res, next) {
-    //if (req.isAuthenticated())
-        //return next();
-
-    //res.redirect('/');
-//}
