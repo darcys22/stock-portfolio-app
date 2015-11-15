@@ -7,6 +7,7 @@ var yqlBuilder = function (quotes) {
 };
 
 var arrayObjMerger = function (arr1, arr2) {
+  if (arr2.constructor != Array) arr2 = [arr2]
   for(var i in arr1){
     for (var j in arr2)
       if (arr2[j].symbol == arr1[i].name) {
@@ -86,8 +87,10 @@ angular.module('myApp.portfolio', ['ngRoute'])
   //Yahoo query builder
   $scope.portfolioBuilder = function() {
     var qts = $scope.portfolio.map(function(x) { return x.name;}).join(', ');
+    console.log(qts);
     $scope.ownedStock = StockFactory.getYQL( yqlBuilder('"' + qts + '"'));
     $scope.ownedStock.then(function (stock) {
+      console.log(stock)
       arrayObjMerger($scope.portfolio, stock.query.results.quote) 
       for (var i=0; i < $scope.portfolio.length; i++) {
         $scope.portfolio[i].individualProfit = +$scope.portfolio[i].LastTradePriceOnly-$scope.portfolio[i].bPrice;
@@ -123,7 +126,6 @@ angular.module('myApp.portfolio', ['ngRoute'])
 
   // Sell a stock with the sell form
   $scope.submitSell = function() {
-    console.log("yaya")
     if (!$scope.sellStock.sDate) {
       $scope.sellStock.bDate = new Date;
     }
@@ -148,6 +150,27 @@ angular.module('myApp.portfolio', ['ngRoute'])
     )
   };
 
+  $scope.deletePortfolio = function(id) {
+    console.log(id)
+    $scope.sellResponse = StockFactory.deletePortfolio(id)
+    stockModal.hide();
+    $scope.sellResponse.then(
+      function (response) {
+        $scope.loading = true;
+        $scope.portfolio = response.portfolio;
+        $scope.portfolioBuilder();
+        $scope.history = response.history;
+      //Error handling on get history
+      }, function (status) {
+        $alert({
+          content: status,
+          animation:"am-fade-and-slide-top",
+          type: 'material',
+          duration: 3
+        })
+      }
+    )
+  };
   // History Show
   $scope.historyActive = false;
   $scope.historyLoad = false;

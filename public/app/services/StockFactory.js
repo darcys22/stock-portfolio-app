@@ -20,7 +20,9 @@ angular.module('myApp')
 
   return {
     getPortfolio: deferredbullshit(function() { return $http.get('/api/portfolio') }),
+    deletePortfolio: deferredbullshit(function(id) { return $http.delete('/api/portfolio/' + id) }),
     getHistory: deferredbullshit(function() { return $http.get('/api/history') }),
+    deleteHistory: deferredbullshit(function(id) { return $http.delete('/api/history/' + id) }),
     buy: deferredbullshit(function(buyObject) { return $http.post('/api/buy', buyObject)}),
     sell: deferredbullshit(function(sellObject) { return $http.post('/api/sell', sellObject) }),
     getYQL: deferredbullshit(function(yqlurl) { return $http({method: 'JSONP', url: (yqlurl + '&callback=JSON_CALLBACK') }) }),
