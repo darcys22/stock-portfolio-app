@@ -40,8 +40,8 @@ angular.module('myApp.portfolio', ['ngRoute'])
         $scope.portfolioBuilder();
       } else {
         $scope.portfolioEmpty = true;
+        $scope.loading = false;
       }
-      $scope.loading = false;
 
 
     //Error handling on get portfolio
