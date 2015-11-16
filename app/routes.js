@@ -30,7 +30,7 @@ module.exports = function(app, passport) {
       passport.authenticate('local-login', {session : false}, function(err, user, info) { 
         if(err) { return next(err) }
         if (!user) {
-          res.json({ success: false, message: 'Authentication failed.' }); 
+          res.send('Authentication failed.', 400); 
         }
 
         var token = jwt.sign({'sub': user._id}, configDB.secret, {

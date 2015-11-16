@@ -19,7 +19,7 @@
         });
 
       } else {
-          res.json({ success: false, message: 'Nothing to change' }); 
+          res.send('Nothing to change', 400); 
       }
     },
     
@@ -40,7 +40,7 @@
         });
 
       } else {
-          res.json({ success: false, message: 'Old Password is incorrect' }); 
+          res.send('Old Password is incorrect', 400); 
       }
     },
 
@@ -48,7 +48,7 @@
       User.findOne({email: req.body.email}, function (err, myDocument) {
         var user = myDocument;
         if (!user) {
-          res.json({ success: false, message: 'Authentication failed.' }); 
+          res.send('Authentication failed.', 400); 
         }
         var token = jwt.sign({'sub': user._id}, configDB.secret, {
           expiresIn:  30 * 60

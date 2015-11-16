@@ -7,6 +7,18 @@
         <p>Keep track of you stock for good time</p>
         <br>
 
+        <div id="nameChange">
+          <div class="input-group col-md-offset-3 col-md-6">
+            <input type="text" class="form-control input-lg" ng-required="true" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="Enter your email to sign up!" ng-model="title">
+            <span class="input-group-btn">
+              <button class="btn btn-default input-lg" ng-click="submitEmail()" type="button">
+                <span class="fa fa-angle-double-right"></span>
+              </button>
+            </span>
+          </div><!-- /input-group -->
+          <br>
+        </div>
+        <br>
         <p>Login or Register with:</p>
 
         <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
