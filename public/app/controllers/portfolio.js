@@ -77,11 +77,6 @@ angular.module('myApp.portfolio', ['ngRoute'])
         _timeout = null;
       },800);
     }
-    //} else {
-      ////$scope.searching = false;
-      ////$scope.searchReturn = false;
-      ////$scope.searchResults = false;
-    //}
   };
 
   //Yahoo query builder
@@ -114,6 +109,8 @@ angular.module('myApp.portfolio', ['ngRoute'])
     $scope.portfolioEmpty = false;
     $scope.portfolio.unshift($scope.buy);
     $scope.buy = {};
+    $scope.invalidStock = true
+    $scope.searchStock = {}
   };
 
   //Modal Popup to sell stock
@@ -127,7 +124,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
   // Sell a stock with the sell form
   $scope.submitSell = function() {
     if (!$scope.sellStock.sDate) {
-      $scope.sellStock.bDate = new Date;
+      $scope.sellStock.sDate = new Date;
     }
     $scope.sellResponse = StockFactory.sell({name: $scope.sellStock.name, sellQty: $scope.sellStock.sellQty, sPrice: $scope.sellStock.sPrice, sDate: $scope.sellStock.sDate})
     $scope.sellStock = {};
@@ -136,7 +133,12 @@ angular.module('myApp.portfolio', ['ngRoute'])
       function (response) {
         $scope.loading = true;
         $scope.portfolio = response.portfolio;
-        $scope.portfolioBuilder();
+        if (typeof $scope.portfolio !== 'undefined' && $scope.portfolio.length > 0) {
+          $scope.portfolioBuilder();
+        } else {
+          $scope.portfolioEmpty = true;
+          $scope.loading = false;
+        }
         $scope.history = response.history;
       //Error handling on get history
       }, function (status) {
@@ -158,8 +160,12 @@ angular.module('myApp.portfolio', ['ngRoute'])
       function (response) {
         $scope.loading = true;
         $scope.portfolio = response.portfolio;
-        $scope.portfolioBuilder();
-        $scope.history = response.history;
+        if (typeof $scope.portfolio !== 'undefined' && $scope.portfolio.length > 0) {
+          $scope.portfolioBuilder();
+        } else {
+          $scope.portfolioEmpty = true;
+          $scope.loading = false;
+        }
       //Error handling on get history
       }, function (status) {
         $alert({
