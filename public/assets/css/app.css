@@ -239,6 +239,29 @@ tfoot {
   padding: 45px 65px 0px 0px;
 }
 
+.del {
+    z-index: 15;
+    position: relative;
+    float: right;
+    width: 36px;
+    height: 36px;
+    color: #990000;
+    font: 32px Arial, sans-serif;
+}
+
+.del:active {
+  color: #1A0000;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
 
 
 .modal-backdrop.am-fade {
@@ -258,3 +281,34 @@ tfoot {
   opacity: 0;
 }
 
+.animate-repeat {
+  line-height:40px;
+  list-style:none;
+  box-sizing:border-box;
+   /*display: block; */
+}
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+   display: block !important;
+  line-height:40px;
+}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+  opacity:0;
+  max-height:0;
+  line-height:40px;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+  opacity:1;
+  max-height:40px;
+  line-height:40px;
+}

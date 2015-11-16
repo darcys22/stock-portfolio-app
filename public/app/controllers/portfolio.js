@@ -82,10 +82,8 @@ angular.module('myApp.portfolio', ['ngRoute'])
   //Yahoo query builder
   $scope.portfolioBuilder = function() {
     var qts = $scope.portfolio.map(function(x) { return x.name;}).join(', ');
-    console.log(qts);
     $scope.ownedStock = StockFactory.getYQL( yqlBuilder('"' + qts + '"'));
     $scope.ownedStock.then(function (stock) {
-      console.log(stock)
       arrayObjMerger($scope.portfolio, stock.query.results.quote) 
       for (var i=0; i < $scope.portfolio.length; i++) {
         $scope.portfolio[i].individualProfit = +$scope.portfolio[i].LastTradePriceOnly-$scope.portfolio[i].bPrice;
@@ -125,6 +123,9 @@ angular.module('myApp.portfolio', ['ngRoute'])
   $scope.submitSell = function() {
     if (!$scope.sellStock.sDate) {
       $scope.sellStock.sDate = new Date;
+    }
+    if (!$scope.sellStock.sellQty) {
+      $scope.sellStock.sellQty = $scope.sellStock.qty;
     }
     $scope.sellResponse = StockFactory.sell({name: $scope.sellStock.name, sellQty: $scope.sellStock.sellQty, sPrice: $scope.sellStock.sPrice, sDate: $scope.sellStock.sDate})
     $scope.sellStock = {};
@@ -166,6 +167,24 @@ angular.module('myApp.portfolio', ['ngRoute'])
           $scope.portfolioEmpty = true;
           $scope.loading = false;
         }
+      //Error handling on get history
+      }, function (status) {
+        $alert({
+          content: status,
+          animation:"am-fade-and-slide-top",
+          type: 'material',
+          duration: 3
+        })
+      }
+    )
+  };
+  $scope.deleteHistory = function(id) {
+    console.log(id)
+    $scope.sellResponse = StockFactory.deleteHistory(id)
+    stockModal.hide();
+    $scope.sellResponse.then(
+      function (response) {
+        $scope.history = response.history;
       //Error handling on get history
       }, function (status) {
         $alert({

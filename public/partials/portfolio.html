@@ -116,15 +116,17 @@
           <th>Buy Price</th>
           <th>Sell Price</th>
           <th>Profit</th>
+          <th class="pull-right">Delete</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="x in history">
+        <tr ng-repeat="x in history" class="animate-repeat">
           <td>{{ x.name }}</td>
           <td>{{ x.qty }}</td>
           <td><a bs-tooltip data-type="info" data-title="Buy Date: {{x.bDate | date:'dd MMM yyyy'}}">{{ x.bPrice | currency}}</a></td>
           <td><a bs-tooltip data-type="info" data-title="Sell Date: {{x.sDate | date:'dd MMM yyyy'}}">{{ x.sPrice | currency}}</a></td>
           <td ng-init="itemTotal = (x.sPrice - x.bPrice)*x.qty; soldProfitAdd(itemTotal)"><a ng-class="{ red: itemTotal < 0, green: itemTotal > 1 }" bs-tooltip data-type="info" data-title="Individual Share Profit: {{(x.sPrice-x.bPrice)| currency}}">{{ itemTotal | currency}}</a></td>
+          <td><span ng-click="deleteHistory(x._id)"class="del noselect">&#10006;</span></td>
         </tr>
       </tbody>
       <tfoot>
