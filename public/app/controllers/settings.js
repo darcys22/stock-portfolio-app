@@ -16,6 +16,13 @@ angular.module('myApp.settings', ['ngRoute'])
   $scope.submitNameChange = function() {
     if ($scope.title.trim()) {
       StockFactory.user({name: $scope.title})
+        .then(function(data) {
+           $alert({content: data, duration: 3, animation:"am-fade-and-slide-top", placement: 'top-right', type: 'info', show: true});
+        })
+        .catch(function(error) {
+           $alert({content: error.data.message, duration: 3, animation:"am-fade-and-slide-top", placement: 'top-right', type: 'danger', show: true});
+        })
+
       $scope.user.name = $scope.title;
       $scope.title = "";
       $scope.nameEditorEnabled = false;
@@ -25,6 +32,13 @@ angular.module('myApp.settings', ['ngRoute'])
   $scope.submit = function() {
     if ($scope.password == $scope.passwordConfirm) {
       StockFactory.password({oldPassword: $scope.oldPassword, password: $scope.password})
+        .then(function(data) {
+           $alert({content: data, duration: 3, animation:"am-fade-and-slide-top", placement: 'top-right', type: 'info', show: true});
+        })
+        .catch(function(error) {
+           $alert({content: error.data.message, duration: 3, animation:"am-fade-and-slide-top", placement: 'top-right', type: 'danger', show: true});
+        })
+
       $scope.oldPassword = "";
       $scope.password = "";
       $scope.passwordConfirm = "";

@@ -1,6 +1,7 @@
 (function () {
 
   var User = require('./../models/user.js');
+  var util = require('util');
 
   function portfolioTrimmer(portfolio) {
     var uniques = [];
@@ -30,6 +31,12 @@
     },
 
     deletePortfolio: function(req, res) {
+      req.checkParams('id', 'Invalid ID').notEmpty().isMongoId();
+      var errors = req.validationErrors();
+      if (errors) {
+        res.send('There have been validation errors: ' + util.inspect(errors), 400);
+        return;
+      }
       req.user.portfolio.pull(req.params.id)
       req.user.save(function (err, savedPreference) {
         if (err) 
@@ -38,6 +45,12 @@
       })
     },
     deleteHistory: function(req, res) {
+      req.checkParams('id', 'Invalid ID').notEmpty().isMongoId();
+      var errors = req.validationErrors();
+      if (errors) {
+        res.send('There have been validation errors: ' + util.inspect(errors), 400);
+        return;
+      }
       req.user.history.pull(req.params.id)
       req.user.save(function (err, savedPreference) {
         if (err) 
@@ -47,7 +60,16 @@
     },
 
     buy: function(req, res) {
-      req.user.portfolio.push(req.body)
+      req.checkBody('name', 'Invalid name').notEmpty().isAlpha();
+      req.checkBody('qty', 'Invalid qty').notEmpty().isInt({min: 1});
+      req.checkBody('bPrice', 'Invalid price').notEmpty().isCurrency({allow_negatives: false});
+      req.checkBody('bDate', 'Invalid date').notEmpty().isDate();
+      var errors = req.validationErrors();
+      if (errors) {
+        res.send('There have been validation errors: ' + util.inspect(errors), 400);
+        return;
+      }
+      req.user.portfolio.push( {name: req.body.name, qty: req.body.qty, bPrice: req.body.bPrice, bDate: req.body.bDate})
       req.user.save(function (err, savedPreference) {
         if (err) 
           return res.send(500, {error: err});
@@ -56,6 +78,15 @@
     },
    
     sell: function(req, res) {
+      req.checkBody('name', 'Invalid name').notEmpty().isAlpha();
+      req.checkBody('sellQty', 'Invalid qty').notEmpty().isInt({min: 1});
+      req.checkBody('sPrice', 'Invalid price').notEmpty().isCurrency({allow_negatives: false});
+      req.checkBody('sDate', 'Invalid date').notEmpty().isDate();
+      var errors = req.validationErrors();
+      if (errors) {
+        res.send('There have been validation errors: ' + util.inspect(errors), 400);
+        return;
+      }
       var sellAmt = req.body.sellQty;
       var stock = req.user.portfolio
         .filter(function(e) { return e.name == req.body.name; })

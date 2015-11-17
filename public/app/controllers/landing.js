@@ -12,6 +12,7 @@ angular.module('myApp.landing', ['ngRoute'])
 }])
 
 .controller('LandingController', ['$scope', '$http', function($scope, $http) {
+  //TODO Make the landing submition signup
   $scope.test = 'test';
 
 }]);

@@ -99,7 +99,6 @@ var myApp = angular.module('myApp', [
 
   var publicPaths = ['login','signup', 'password', ,'forgot', 'landing','pricing','features',''];
   var angularPath = $location.path().split('/')[1];
-  console.log(angularPath);
   // register listener to watch route changes
   $rootScope.$on( "$locationChangeStart", function(event, next, current) {
     if (!$auth.isAuthenticated()) {

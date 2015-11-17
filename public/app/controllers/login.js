@@ -27,7 +27,7 @@ angular.module('myApp.login', ['ngRoute'])
         .catch(function(response) {
           console.log(response);
           $alert({
-            content: response.data.message,
+            content: response.data,
             animation:"am-fade-and-slide-top",
             type: 'material',
             duration: 3

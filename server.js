@@ -14,6 +14,7 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+var expressValidator = require('express-validator');
 
 var jwt = require('jsonwebtoken');
 
@@ -22,20 +23,15 @@ var notifier = require('node-notifier');
 
 
 var allowCrossDomain = function(req, res, next) {
-    //res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Origin', 'query.yahooapis.com');
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
-    //res.header('Access-Control-Allow-Headers', 'Content-Type');
-
     next();
 }
 
 // configuration ===============================================================
 var options = { server: { auto_reconnect: true, socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } },
-//var options = { server: { auto_reconnect: true, socketOptions: { keepAlive: 1, connectTimeoutMS: 1000 } }, 
-                //replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 1000 } },
                 db:     { numberOfRetries: 10, retryMiliSeconds: 1000 }
 };
 mongoose.set('debug', true)
@@ -57,11 +53,11 @@ require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
 app.use(express.static(__dirname + '/dist'));
-//app.use(morgan('dev')); // log every request to the console
 app.use(morgan('dev', {immediate: true})); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator()); // this line must be immediately after express.bodyParser()!
 app.use(allowCrossDomain);
 
 
