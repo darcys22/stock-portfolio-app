@@ -1,5 +1,5 @@
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
-var configDB = require('../config/database.js');
+var config = require('../config/config.js');
 
 var stocks = require('./controllers/stocks.js');
 var users = require('./controllers/users.js');
@@ -33,7 +33,7 @@ module.exports = function(app, passport) {
           return res.send('Authentication failed.', 400); 
         }
 
-        var token = jwt.sign({'sub': user._id}, configDB.secret, {
+        var token = jwt.sign({'sub': user._id}, config.secret, {
           expiresIn: 1440 * 60
         });
 
@@ -44,7 +44,7 @@ module.exports = function(app, passport) {
     // SIGNUP =================================
     // process the signup form
     app.post('/api/signUp', passport.authenticate('local-signup', { session : false}), function (req, res) {
-      var token = jwt.sign({'sub': req.user._id}, configDB.secret, {
+      var token = jwt.sign({'sub': req.user._id}, config.secret, {
         expiresIn: 1440 * 60
       });
       console.log("http://localhost:9000/password/" + token);

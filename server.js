@@ -18,7 +18,7 @@ var expressValidator = require('express-validator');
 
 var jwt = require('jsonwebtoken');
 
-var configDB = require('./config/database.js');
+var config = require('./config/config.js');
 var notifier = require('node-notifier');
 
 
@@ -35,7 +35,7 @@ var options = { server: { auto_reconnect: true, socketOptions: { keepAlive: 1, c
                 db:     { numberOfRetries: 10, retryMiliSeconds: 1000 }
 };
 mongoose.set('debug', true)
-mongoose.connect(uriUtil.formatMongoose(configDB.url), options); // connect to our database
+mongoose.connect(uriUtil.formatMongoose(config.db.url), options); // connect to our database
 var conn = mongoose.connection;
 
 conn.on('error', function(error) {
@@ -44,7 +44,7 @@ conn.on('error', function(error) {
   });
 conn.on('disconnected', function() {
     console.log('disconnected');
-    mongoose.connect(uriUtil.formatMongoose(configDB.url), options); // connect to our database
+    mongoose.connect(uriUtil.formatMongoose(config.db.url), options); // connect to our database
   });
 
 conn.once('open', function() {

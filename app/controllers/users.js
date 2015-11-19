@@ -2,7 +2,7 @@
 
   var User = require('./../models/user.js');
   var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
-  var configDB = require('../../config/database.js');
+  var config = require('../../config/config.js');
   var util = require('util');
 
   module.exports = {
@@ -41,7 +41,7 @@
         req.user.password = req.user.generateHash(req.body.password);
         req.user.save(function(err) {
           if (err) return res.json(err);
-          var token = jwt.sign({'sub': req.user._id}, configDB.secret, {
+          var token = jwt.sign({'sub': req.user._id}, config.secret, {
             expiresIn: 1440 * 60
           });
 
@@ -66,7 +66,7 @@
           res.json("Password Reset Email Sent to " + req.body.email);
           return;
         }
-        var token = jwt.sign({'sub': user._id}, configDB.secret, {
+        var token = jwt.sign({'sub': user._id}, config.secret, {
           expiresIn:  30 * 60
         });
         console.log("http://localhost:9000/password/" + token);
