@@ -4,6 +4,7 @@
   var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
   var config = require('../../config/config.js');
   var util = require('util');
+  var mailer = require('../mailer/models');
 
   module.exports = {
 
@@ -54,6 +55,7 @@
     },
 
     forgot: function(req, res) {
+      //http://www.scotchmedia.com/tutorials/express/authentication/3/02
       req.checkBody(['email'], 'Invalid Email').notEmpty().isEmail();
       var errors = req.validationErrors();
       if (errors) {
@@ -69,8 +71,20 @@
         var token = jwt.sign({'sub': user._id}, config.secret, {
           expiresIn:  30 * 60
         });
-        console.log("http://localhost:9000/password/" + token);
-        res.json("Password Reset Email Sent to " + req.body.email);
+        if (user.name) {
+          var name = user.name
+        } else {
+          var name = 'Sir or Madam'
+        }
+        var locals = {
+          email: req.body.email,
+          subject: 'Password reset',
+          name: name
+          resetURL: "http://localhost:9000/password/" + token;
+        };
+        mailer.sendOne('password_reset', locals, function (err, responseStatus, html, text) {
+          return res.json("Password Reset Email Sent to " + req.body.email);
+        })
       });
     },
    
