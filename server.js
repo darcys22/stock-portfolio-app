@@ -19,7 +19,7 @@ var expressValidator = require('express-validator');
 var jwt = require('jsonwebtoken');
 
 var config = require('./config/config.js');
-var notifier = require('node-notifier');
+//var notifier = require('node-notifier');
 
 
 var allowCrossDomain = function(req, res, next) {
@@ -73,6 +73,6 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);
-notifier.notify({ title: "WebServer:", message : "server running" });
+//notifier.notify({ title: "WebServer:", message : "server running" });
 
 });
