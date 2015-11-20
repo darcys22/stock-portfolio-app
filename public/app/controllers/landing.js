@@ -11,10 +11,28 @@ angular.module('myApp.landing', ['ngRoute'])
   });
 }])
 
-.controller('LandingController', ['$scope', '$http', function($scope, $http) {
-  //TODO Make the landing submition signup
-  $scope.test = 'test';
-
+.controller('LandingController', ['$scope', '$http', '$auth', '$alert', function($scope, $http, $auth, $alert) {
+  $scope.submitEmail = function() {
+    $auth.signup({
+      email: $scope.email,
+      name: ""
+    }).then(function() {
+      $alert({
+        content: 'Thank You for signing up! A Confirmation email has been sent to ' + $scope.email + ', please follow the instructions contained in the email to complete registration',
+        animation:"am-fade-and-slide-top",
+        type: 'material',
+        duration: 7
+      });
+      $scope.email = "";
+    }).catch(function(response) {
+      $alert({
+        content: response.data.message,
+        animation:"am-fade-and-slide-top",
+        type: 'material',
+        duration: 3
+      });
+    });
+  };
 }]);
 
 })();

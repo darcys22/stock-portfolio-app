@@ -48,8 +48,8 @@ gulp.task('build', ['clean'], function () {
     return gulp.src( [ 'public/index.html' ], {base: 'public'})
         .pipe(plugins.if(isIndexHtml, plugins.usemin({
             html: [plugins.minifyHtml({empty: true})],
-            //js: [plugins.ngAnnotate(), plugins.stripDebug(), plugins.uglify(), plugins.rev()],
-            js: [],
+            js: [plugins.ngAnnotate(), plugins.stripDebug(), plugins.uglify(), plugins.rev()],
+            //js: [],
             vendorjs: [plugins.rev()],
             vendorcss: [plugins.minifyCss(), 'concat', plugins.rev()],
             css: [plugins.minifyCss(), 'concat', plugins.rev()],
