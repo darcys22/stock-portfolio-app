@@ -13,7 +13,7 @@ angular.module('myApp')
 .controller('NavigationController', ['$rootScope', '$scope', '$auth', 'UserFactory', function($rootScope, $scope, $auth, UserFactory) {
   $scope.$watch( function( $scope ) { return $scope.isAuthenticated() },
     function ( newValue ) {
-      if(newValue) {
+      if(newValue && !$rootScope.user) {
         UserFactory.get()
           .success(function(data) {
             $rootScope.user = data;

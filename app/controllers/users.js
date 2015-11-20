@@ -28,7 +28,7 @@
     },
     
     changePass: function(req, res) {
-      req.checkBody(['oldPassword', 'password'], 'Invalid Pass').notEmpty();
+      req.checkBody(['password'], 'Invalid Pass').notEmpty();
       var errors = req.validationErrors();
       if (errors) {
         res.send('There have been validation errors: ' + util.inspect(errors), 400);
@@ -79,10 +79,11 @@
         var locals = {
           email: req.body.email,
           subject: 'Password reset',
-          name: name
-          resetURL: "http://localhost:9000/password/" + token;
+          name: name,
+          resetUrl: "http://localhost:9000/password/" + token
         };
         mailer.sendOne('password_reset', locals, function (err, responseStatus, html, text) {
+          if (err) console.log(err);
           return res.json("Password Reset Email Sent to " + req.body.email);
         })
       });

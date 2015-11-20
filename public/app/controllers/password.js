@@ -30,7 +30,7 @@ angular.module('myApp.password', ['ngRoute'])
       $scope.$apply();
     }).catch(function(response) {
       $alert({
-        content: response.data.message,
+        content: response,
         animation:"am-fade-and-slide-top",
         type: 'material',
         duration: 3

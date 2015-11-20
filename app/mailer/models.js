@@ -2,16 +2,17 @@
 
 var config = require('../../config/config');
 var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 var path = require('path');
 var templatesDir = path.resolve(__dirname, '..', 'views/mailer');
 var emailTemplates = require('email-templates');
 
 var EmailAddressRequiredError = new Error('email address required');
 
-var defaultTransport = nodemailer.createTransport('SMTP', {
+var defaultTransport = nodemailer.createTransport((smtpTransport({
   service: 'Gmail',
   auth : config.mailer.auth
-});
+})));
 
 exports.sendOne = function (templateName, locals, fn) {
   if (!locals.email) {
@@ -35,7 +36,7 @@ exports.sendOne = function (templateName, locals, fn) {
         subject: locals.subject,
         html: html,
         text: text
-      } function (err, responseStatus) {
+      }, function (err, responseStatus) {
         if (err) {
           return fn(err);
         }

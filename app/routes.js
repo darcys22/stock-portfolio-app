@@ -4,6 +4,9 @@ var config = require('../config/config.js');
 var stocks = require('./controllers/stocks.js');
 var users = require('./controllers/users.js');
 
+var util = require('util');
+var mailer = require('./mailer/models');
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -47,8 +50,22 @@ module.exports = function(app, passport) {
       var token = jwt.sign({'sub': req.user._id}, config.secret, {
         expiresIn: 1440 * 60
       });
-      console.log("http://localhost:9000/password/" + token);
-      res.json("Confirmation Email Sent");
+
+      if (req.user.name) {
+        var name = user.name
+      } else {
+        var name = 'Sir or Madam'
+      }
+      var locals = {
+        email: req.user.email,
+        subject: 'Stock Profile Registration',
+        name: name,
+        resetUrl: "http://localhost:9000/password/" + token
+      };
+      mailer.sendOne('confirmation', locals, function (err, responseStatus, html, text) {
+        if (err) return res.send(500, err);
+        return res.json("Confirmation Email Sent to " + req.body.email);
+      })
     });
 
     // Password Recovery =================================

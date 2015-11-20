@@ -6,8 +6,7 @@ var JwtStrategy      = require('passport-jwt').Strategy;
 var User       = require('../app/models/user');
 
 // load the auth variables
-var configAuth = require('./auth'); // use this one for testing
-var configDB = require('./database'); // use this one for testing
+var config = require('./config'); // use this one for testing
 
 module.exports = function(passport) {
 
@@ -34,7 +33,7 @@ module.exports = function(passport) {
     // =========================================================================
 
     passport.use('jwt', new JwtStrategy({
-      secretOrKey : configDB.secret,
+      secretOrKey : config.secret,
       algorithms : ["HS256"]
     },
     function(jwt_payload, done) {
