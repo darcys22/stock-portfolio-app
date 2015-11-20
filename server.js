@@ -34,7 +34,7 @@ var options = { server: { auto_reconnect: true, socketOptions: { keepAlive: 1, c
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } },
                 db:     { numberOfRetries: 10, retryMiliSeconds: 1000 }
 };
-mongoose.set('debug', true)
+//mongoose.set('debug', true)
 mongoose.connect(uriUtil.formatMongoose(config.db.url), options); // connect to our database
 var conn = mongoose.connection;
 
@@ -53,7 +53,7 @@ require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
 app.use(express.static(__dirname + '/dist'));
-app.use(morgan('dev', {immediate: true})); // log every request to the console
+app.use(morgan('common', {immediate: true})); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
