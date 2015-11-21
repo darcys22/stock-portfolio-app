@@ -80,7 +80,7 @@
           email: req.body.email,
           subject: 'Password reset',
           name: name,
-          resetUrl: "http://localhost:9000/password/" + token
+          resetUrl: "doyouevenstock.com/password/" + token
         };
         mailer.sendOne('password_reset', locals, function (err, responseStatus, html, text) {
           if (err) console.log(err);

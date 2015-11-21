@@ -60,7 +60,7 @@ module.exports = function(app, passport) {
         email: req.user.email,
         subject: 'Stock Profile Registration',
         name: name,
-        resetUrl: "http://localhost:9000/password/" + token
+        resetUrl: "doyouevenstock.com/password/" + token
       };
       mailer.sendOne('confirmation', locals, function (err, responseStatus, html, text) {
         if (err) return res.send(500, err);
