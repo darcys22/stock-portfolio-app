@@ -2,7 +2,7 @@
   "name": "stockPortfolio",
   "main": "server.js",
   "scripts": {
-    "start": "pm2 start server.js -i 2 && pm2 logs",
+    "start": "pm2 start server.js -i 2 --no-daemon",
     "watch": "gulp watch"
   },
   "dependencies": {
