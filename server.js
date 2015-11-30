@@ -53,7 +53,7 @@ require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
 app.use(express.static(__dirname + '/dist'));
-app.use(morgan('common', {immediate: true})); // log every request to the console
+app.use(morgan('default', {immediate: true})); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
