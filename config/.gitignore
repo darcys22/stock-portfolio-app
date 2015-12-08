@@ -1,3 +1,5 @@
 auth.js
 database.js
 config.js
+server.crt
+server.key

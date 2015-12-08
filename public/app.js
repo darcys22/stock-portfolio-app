@@ -78,7 +78,7 @@ var myApp = angular.module('myApp', [
 
 }])
 
-.run(function($rootScope, $location, $auth, $alert) {
+.run(function($rootScope, $location, $auth, $alert, UserFactory) {
 
   /**
    * The user data.
@@ -97,14 +97,22 @@ var myApp = angular.module('myApp', [
     });
   }
 
-  var publicPaths = ['login','signup', 'password', ,'forgot', 'landing','pricing','features',''];
+  var publicPaths = ['settings','portfolio'];
   var angularPath = $location.path().split('/')[1];
   // register listener to watch route changes
   $rootScope.$on( "$locationChangeStart", function(event, next, current) {
     if (!$auth.isAuthenticated()) {
       // not logged user, we should be going to /login
-      if ( publicPaths.indexOf(angularPath) < 0 ) {
+      if ( publicPaths.indexOf(angularPath) > 0 ) {
           $location.path('/login');
+      }
+    } else {
+      if (!$rootScope.user.email) {
+        UserFactory.get()
+          .success(function(data) {
+            $rootScope.user = data;
+            $rootScope.$broadcast('userEvent');
+          })
       }
     }
   });

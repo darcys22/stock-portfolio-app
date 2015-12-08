@@ -10,30 +10,20 @@ angular.module('myApp')
 })
 
 
-.controller('NavigationController', ['$rootScope', '$scope', '$auth', 'UserFactory', function($rootScope, $scope, $auth, UserFactory) {
-  $scope.getUser = function() {
-    UserFactory.get()
-      .success(function(data) {
-        $rootScope.user = data;
-        $scope.dropdown.push(
-          {
-            "text": $rootScope.user.email,
-            "href": "/portfolio"
-          });
-      })
-  }
-  $scope.$watch( function( $scope ) { return $scope.isAuthenticated() },
-    function ( newValue ) {
-      if(newValue && !$rootScope.user) {
-        $scope.getUser()
-      }
-    }
-  )
+.controller('NavigationController', ['$rootScope', '$scope', '$auth', function($rootScope, $scope, $auth) {
 
-  $scope.getUser()
   $scope.isAuthenticated = function() {
     return $auth.isAuthenticated();
   };
+
+  $rootScope.$on('userEvent', function() {
+    $scope.dropdown.push(
+      {
+        "text": $rootScope.user.email,
+        "href": "/portfolio"
+      });
+  }); 
+
 
   $scope.dropdown = [
     {
@@ -46,10 +36,6 @@ angular.module('myApp')
     },
     {
       "divider": true
-    },
-    {
-      "text": "{{user.email}}" ,
-      "click": ""
     }
   ];
 
