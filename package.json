@@ -2,7 +2,7 @@
   "name": "stockPortfolio",
   "main": "server.js",
   "scripts": {
-    //"start": "pm2 start server.js -i 2 --no-daemon",
+    "_oldstart": "pm2 start server.js -i 2 --no-daemon",
     "start": "pm2 start server.js --no-daemon",
     "watch": "gulp watch"
   },
