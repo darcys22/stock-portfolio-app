@@ -3,7 +3,7 @@
 
 var yqlBuilder = function (quotes) {
   var query = "select * from yahoo.finance.quotes where symbol in (" + quotes + ")";
-  return "http://query.yahooapis.com/v1/public/yql?q=" + escape(query) + "&format=json&env=http://datatables.org/alltables.env";
+  return "https://query.yahooapis.com/v1/public/yql?q=" + escape(query) + "&format=json&env=http://datatables.org/alltables.env";
 };
 
 var arrayObjMerger = function (arr1, arr2) {
