@@ -60,7 +60,7 @@
     },
 
     buy: function(req, res) {
-      req.checkBody('name', 'Invalid name').notEmpty().isAlpha();
+      req.checkBody('name', 'Invalid name').notEmpty().matches(/[a-zA-Z0-9\.]*/);
       req.checkBody('qty', 'Invalid qty').notEmpty().isInt({min: 1});
       req.checkBody('bPrice', 'Invalid price').notEmpty().isCurrency({allow_negatives: false});
       req.checkBody('bDate', 'Invalid date').notEmpty().isDate();
@@ -78,7 +78,7 @@
     },
    
     sell: function(req, res) {
-      req.checkBody('name', 'Invalid name').notEmpty().isAlpha();
+      req.checkBody('name', 'Invalid name').notEmpty().matches(/[a-zA-Z0-9\.]*/);
       req.checkBody('sellQty', 'Invalid qty').notEmpty().isInt({min: 1});
       req.checkBody('sPrice', 'Invalid price').notEmpty().isCurrency({allow_negatives: false});
       req.checkBody('sDate', 'Invalid date').notEmpty().isDate();

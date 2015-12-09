@@ -71,7 +71,7 @@ angular.module('myApp.portfolio', ['ngRoute'])
         $scope.searchStock = StockFactory.getYQL( yqlBuilder('"' + searchQuery + '"'));
         $scope.searchStock.then(function (stock) {
           $scope.searchStock = stock.query.results.quote;
-          if ($scope.searchStock.Ask === null) { $scope.searchStock = {}
+          if ($scope.searchStock.Name === null) { $scope.searchStock = {}
           } else { $scope.invalidStock = false; }
         })
         _timeout = null;
